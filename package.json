@@ -2,9 +2,11 @@
   "name": "plentytodo",
   "version": "1.0.0",
   "description": "A project based on the Project: Todo List in the Javascript course, the Odin Project",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/sawfiz/plentyToDo/issues"
   },
-  "homepage": "https://github.com/sawfiz/plentyToDo#readme"
+  "homepage": "https://github.com/sawfiz/plentyToDo#readme",
+  "devDependencies": {
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
 }

@@ -27,12 +27,14 @@ body {
 .header {
   background-color: var(--darker-color);
   display: flex;
+  align-items: center;
   box-shadow: 0 4px 8px rgb(0, 0, 0, 0.5);
   z-index: 10;
 }
 
 h1 {
   width: clamp(150px, 20%, 300px);
+  font-size: clamp(1.3rem, 2.65vw, 2.3rem);
   padding: 0.5rem 1rem;
   color: white;
   text-shadow: 1px 1px 4px #000;
@@ -57,7 +59,7 @@ h1 {
 
 .quote {
   flex: 1;
-  padding: 1rem;
+  padding: 0.5rem;
   color: white;
   text-align: right;
 }

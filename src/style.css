@@ -246,9 +246,11 @@ footer {
 }
 
 #add-task-dialog {
+  padding: 1rem;
+  background-color: var(--light-color);
+}
 
-  width: 500px;
-  height: 500px;
-  background-color: #000;
-
+#add-task-dialog li {
+  display: flex;
+  justify-content: space-between;
 }

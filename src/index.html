@@ -143,7 +143,42 @@
     </main>
     <footer>Copyright sawfiz@github</footer>
     <form class="modal" id="add-task-dialog">
-        hello
+        <fieldset>
+            <legend>Task Details</legend>
+            <ul>
+                <li>
+                    <label for="focus">Focus today</label>
+                    <input type="checkbox" name="focus" id="focus">
+                </li>
+                <li>
+                    <label for="complete">Compelete</label>
+                    <input type="checkbox" name="complete" id="complete">
+                </li>
+                <li>
+                    <label for="status">Status</label>
+                    <select name="status" id="status">
+                        <option value="to-do">To do</option>
+                        <option value="doing">Doing</option>
+                        <option value="await">Await</option>
+                        <option value="done">Done</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description">
+                </li>
+                <li>
+                    <label for="start-date">Start date</label>
+                    <input type="date" name="start-date" id="start-date">
+                </li>
+                <li>
+                    <label for="due-date">Due date</label>
+                    <input type="date" name="due-date" id="due-date">
+                </li>
+            </ul>
+        </fieldset>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
     </form>
     <div class="overlay"></div>
 </body>

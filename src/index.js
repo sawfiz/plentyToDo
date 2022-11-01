@@ -1,4 +1,5 @@
 import taskFactory from './task';
+import displayTasks from './tasklist';
 
 const allTasks = [];
 
@@ -57,7 +58,7 @@ const toDoApp = (() => {
   // Open the add a new task modal
   bigAddBtn.addEventListener('click', () => {
     initInputs();
-    openModal(addTaskDialog)
+    openModal(addTaskDialog);
   });
 
   addTaskSubmitBtn.addEventListener('click', (e) => {
@@ -76,6 +77,7 @@ const toDoApp = (() => {
     closeModal(addTaskDialog);
     allTasks.push(newTask);
     console.log(allTasks);
+    displayTasks(allTasks);
   });
 
   // Click outside of a popup closes the popup

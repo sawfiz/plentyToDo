@@ -4,33 +4,113 @@ import tasksDisplay from './tasksDisplay';
 
 let hideCompletedTasks = false;
 
-// Get allTasks from local storage
-let allTasks = JSON.parse(localStorage.getItem('tasks'));
-if (allTasks === null) allTasks = [];
-tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
-
-
-function initApp() {
-  // Activate help
-  help.toggleHelp();
-
-  // Activate sort functions
-  tasksDisplay.sortFocus(allTasks);
-  tasksDisplay.sortStatus(allTasks);
-  tasksDisplay.sortDescription(allTasks);
-  tasksDisplay.sortProject(allTasks);
-  tasksDisplay.sortStartDate(allTasks);
-  tasksDisplay.sortDueDate(allTasks);
-}
-initApp();
-
 const setHideCompletedTasks = (() => {
-  const hideCompletedEl = document.querySelector('#hide-completed')
+  const hideCompletedEl = document.querySelector('#hide-completed');
+  hideCompletedTasks = hideCompletedEl.checked;
+  console.log("MM",hideCompletedTasks);
   hideCompletedEl.addEventListener('change', () => {
     hideCompletedTasks = hideCompletedEl.checked;
     tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
-  })
+  });
+  // return { hide };
 })();
+
+// Get allTasks from local storage
+let allTasks = JSON.parse(localStorage.getItem('tasks'));
+if (allTasks === null) allTasks = [];
+console.log(allTasks);
+tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
+
+// Active help section in the sidebar
+help.toggleHelp();
+
+// Functions to sort the tasks
+const sortTasks = (() => {
+  let focusSortAscend = true;
+  let statusSortAscend = true;
+  let descriptionSortAscend = true;
+  let projectSortAscend = true;
+  let startDatetSortAscend = true;
+  let dueDatetSortAscend = true;
+
+  function sortByKey(array, key, sortAscend) {
+    return array.sort((a, b) => {
+      if (sortAscend) {
+        return a[key] < b[key] ? -1 : 1;
+      }
+      return a[key] > b[key] ? -1 : 1;
+    });
+  }
+
+  function sortFocus(taskList) {
+    const sortFoucsEl = document.querySelector('#focus-sort');
+    sortFoucsEl.addEventListener('click', () => {
+      sortByKey(taskList, 'focus', focusSortAscend);
+      tasksDisplay.displayTasks(taskList, hideCompletedTasks);
+      focusSortAscend = !focusSortAscend;
+    });
+  }
+
+  function sortStatus(taskList) {
+    const sortStatusEl = document.querySelector('#status-sort');
+    sortStatusEl.addEventListener('click', () => {
+      sortByKey(taskList, 'state', statusSortAscend);
+      tasksDisplay.displayTasks(taskList, hideCompletedTasks);
+      statusSortAscend = !statusSortAscend;
+    });
+  }
+
+  function sortDescription(taskList) {
+    const sortDescriptionEl = document.querySelector('#description-sort');
+    sortDescriptionEl.addEventListener('click', () => {
+      sortByKey(taskList, 'description', descriptionSortAscend);
+      console.log("ss", setHideCompletedTasks);
+      tasksDisplay.displayTasks(taskList, hideCompletedTasks);
+      descriptionSortAscend = !descriptionSortAscend;
+    });
+  }
+
+  function sortProject(taskList) {
+    const sortProjectEl = document.querySelector('#project-sort');
+    sortProjectEl.addEventListener('click', () => {
+      sortByKey(taskList, 'project', projectSortAscend);
+      tasksDisplay.displayTasks(taskList);
+      projectSortAscend = !projectSortAscend;
+    });
+  }
+
+  function sortStartDate(taskList) {
+    const sortStartDateEl = document.querySelector('#start-date-sort');
+    sortStartDateEl.addEventListener('click', () => {
+      sortByKey(taskList, 'startDate', startDatetSortAscend);
+      tasksDisplay.displayTasks(taskList, hideCompletedTasks);
+      startDatetSortAscend = !startDatetSortAscend;
+    });
+  }
+
+  function sortDueDate(taskList) {
+    const sortDueDateEl = document.querySelector('#due-date-sort');
+    sortDueDateEl.addEventListener('click', () => {
+      sortByKey(taskList, 'dueDate', dueDatetSortAscend);
+      tasksDisplay.displayTasks(taskList, hideCompletedTasks);
+      dueDatetSortAscend = !dueDatetSortAscend;
+    });
+  }
+
+  return {
+    sortFocus,
+    sortStatus,
+    sortDescription,
+    sortProject,
+    sortStartDate,
+    sortDueDate,
+  };
+})();
+sortTasks.sortFocus(allTasks);
+sortTasks.sortStatus(allTasks);
+sortTasks.sortDescription(allTasks);
+sortTasks.sortStartDate(allTasks);
+sortTasks.sortDueDate(allTasks);
 
 const toDoApp = (() => {
   const bigAddBtn = document.querySelector('.big-add');
@@ -91,7 +171,6 @@ const toDoApp = (() => {
     // Focus the cursor on the new task's description input field
     document.querySelector('.task-task').focus();
   });
-
 })();
 
 //   // Modal functions

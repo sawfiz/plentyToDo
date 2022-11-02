@@ -1,21 +1,17 @@
 const tasksDisplay = (() => {
-  let focusSortAscend = true;
-  let statusSortAscend = true;
-  let descriptionSortAscend = true;
-  let projectSortAscend = true;
-  let startDatetSortAscend = true;
-  let dueDatetSortAscend = true;
-
   function displayTasks(taskList, hideCompletedTasks) {
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
+    let filteredList = taskList;
 
+    console.log('aa', hideCompletedTasks);
     // First filte out the completed tasks
     if (hideCompletedTasks === true) {
-      taskList = taskList.filter(task => task.state !== 3)
+      filteredList = taskList.filter((task) => task.state !== 3);
+      console.log(filteredList);
     }
-  
-    taskList.forEach((task) => {
+
+    filteredList.forEach((task) => {
       // Creat a new task element for display
       const taskEl = document.createElement('div');
       taskEl.classList.add('task');
@@ -62,6 +58,9 @@ const tasksDisplay = (() => {
       stateEl.addEventListener('change', () => {
         task.state = stateEl.selectedIndex;
         localStorage.tasks = JSON.stringify(taskList);
+        if (hideCompletedTasks === true && task.state === 3) {
+          listEl.removeChild(taskEl);
+        }
       });
 
       // Create the task description input element
@@ -126,71 +125,7 @@ const tasksDisplay = (() => {
       listEl.appendChild(taskEl);
     });
   }
-
-  function sortByKey(array, key, sortAscend) {
-    return array.sort((a, b) => {
-      if (sortAscend) {
-        return a[key] < b[key] ? -1 : 1;
-      }
-      return a[key] > b[key] ? -1 : 1;
-    });
-  }
-
-  function sortFocus(taskList) {
-    const sortFoucsEl = document.querySelector('#focus-sort');
-    sortFoucsEl.addEventListener('click', () => {
-      sortByKey(taskList, 'focus', focusSortAscend);
-      displayTasks(taskList);
-      focusSortAscend = !focusSortAscend;
-    });
-  }
-
-  function sortStatus(taskList) {
-    const sortStatusEl = document.querySelector('#status-sort');
-    sortStatusEl.addEventListener('click', () => {
-      sortByKey(taskList, 'state', statusSortAscend);
-      displayTasks(taskList);
-      statusSortAscend = !statusSortAscend;
-    });
-  }
-
-  function sortDescription(taskList) {
-    const sortDescriptionEl = document.querySelector('#description-sort');
-    sortDescriptionEl.addEventListener('click', () => {
-      sortByKey(taskList, 'description', descriptionSortAscend);
-      displayTasks(taskList);
-      descriptionSortAscend = !descriptionSortAscend;
-    });
-  }
-
-  function sortProject(taskList) {
-    const sortProjectEl = document.querySelector('#project-sort');
-    sortProjectEl.addEventListener('click', () => {
-      sortByKey(taskList, 'project', projectSortAscend);
-      displayTasks(taskList);
-      projectSortAscend = !projectSortAscend;
-    });
-  }
-
-  function sortStartDate(taskList) {
-    const sortStartDateEl = document.querySelector('#start-date-sort');
-    sortStartDateEl.addEventListener('click', () => {
-      sortByKey(taskList, 'startDate', startDatetSortAscend);
-      displayTasks(taskList);
-      startDatetSortAscend = !startDatetSortAscend;
-    });
-  }
-
-  function sortDueDate(taskList) {
-    const sortDueDateEl = document.querySelector('#due-date-sort');
-    sortDueDateEl.addEventListener('click', () => {
-      sortByKey(taskList, 'dueDate', dueDatetSortAscend);
-      displayTasks(taskList);
-      dueDatetSortAscend = !dueDatetSortAscend;
-    });
-  }
-
-  return { displayTasks, sortFocus, sortStatus, sortDescription, sortProject, sortStartDate, sortDueDate };
+  return { displayTasks };
 })();
 
 export default tasksDisplay;

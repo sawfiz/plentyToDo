@@ -1,6 +1,6 @@
 import taskFactory from './task';
 import help from './sidebar';
-import displayTasks from './tasklist';
+import tasksDisplay from './tasksDisplay';
 
 // Activate help
 help.toggleHelp();
@@ -8,12 +8,12 @@ help.toggleHelp();
 // Get allTasks from local storage
 let allTasks = JSON.parse(localStorage.getItem('tasks'));
 if (allTasks === null) allTasks = [];
-displayTasks(allTasks);
+tasksDisplay.displayTasks(allTasks);
 
 const toDoApp = (() => {
   const bigAddBtn = document.querySelector('.big-add');
-  const overlayEl = document.querySelector('.overlay');
-  const addTaskDialog = document.querySelector('#add-task-dialog');
+  // const overlayEl = document.querySelector('.overlay');
+  // const addTaskDialog = document.querySelector('#add-task-dialog');
   const focusInput = document.querySelector('#focus');
   const completeInput = document.querySelector('#complete');
   const stateInput = document.querySelector('#state');
@@ -65,7 +65,7 @@ const toDoApp = (() => {
     // Insert the new task at the beginning of the allTasks list
     allTasks.unshift(newTask);
     localStorage.tasks = JSON.stringify(allTasks);
-    displayTasks(allTasks);
+    tasksDisplay.displayTasks(allTasks);
     // Focus the cursor on the new task's description input field
     document.querySelector('.task-task').focus();
   });

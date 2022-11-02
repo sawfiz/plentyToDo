@@ -16,11 +16,16 @@ const help = (() => {
     function showHelp() {
         const helpContent = document.getElementsByTagName('template')[0];
         const clon = helpContent.content.cloneNode(true);
+        helpEl.classList.remove('mdi', 'mdi-chevron-right')
+        helpEl.classList.add('mdi', 'mdi-chevron-down')
+        helpEl.innerText = 'Help'
         helpEl.appendChild(clon);
     }
-
+    
     function hideHelp() {
-        helpEl.innerText = '▹ Help'
+        helpEl.classList.remove('mdi', 'mdi-chevron-down')
+        helpEl.classList.add('mdi', 'mdi-chevron-right')
+        helpEl.innerText = 'Help'
         show = false;
     }
 

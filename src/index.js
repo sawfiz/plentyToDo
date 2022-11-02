@@ -1,7 +1,11 @@
 import taskFactory from './task';
 import displayTasks from './tasklist';
 
-const allTasks = [];
+let allTasks = JSON.parse(localStorage.getItem('tasks'));
+if (allTasks === null) allTasks = [];
+
+console.log(allTasks);
+displayTasks(allTasks);
 
 const toDoApp = (() => {
   const bigAddBtn = document.querySelector('.big-add');
@@ -55,7 +59,7 @@ const toDoApp = (() => {
       (dueDateInput.value = getToday());
   }
 
-  // Open the add a new task modal
+  // Allow user to add a new task
   bigAddBtn.addEventListener('click', () => {
     initInputs();
     // openModal(addTaskDialog);
@@ -68,23 +72,26 @@ const toDoApp = (() => {
       getToday(),
       getToday()
     );
+    // Insert the new task at the beginning of the allTasks list
     allTasks.unshift(newTask);
+    localStorage.tasks = JSON.stringify(allTasks);
     displayTasks(allTasks);
-    document.querySelector('.task-task').focus()
+    // Focus the cursor on the new task's description input field
+    document.querySelector('.task-task').focus();
   });
 
-  addTaskSubmitBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    console.log(newTask);
-    closeModal(addTaskDialog);
-    console.log(allTasks);
-  });
+  //   addTaskSubmitBtn.addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     console.log(newTask);
+  //     closeModal(addTaskDialog);
+  //     console.log(allTasks);
+  //   });
 
-  // Click outside of a popup closes the popup
-  overlayEl.addEventListener('click', () => {
-    const modalsEl = document.querySelectorAll('.modal.active');
-    modalsEl.forEach((modal) => {
-      closeModal(modal);
-    });
-  });
+  //   // Click outside of a popup closes the popup
+  //   overlayEl.addEventListener('click', () => {
+  //     const modalsEl = document.querySelectorAll('.modal.active');
+  //     modalsEl.forEach((modal) => {
+  //       closeModal(modal);
+  //     });
+  //   });
 })();

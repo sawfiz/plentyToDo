@@ -10,12 +10,13 @@ function displayTasks(taskList) {
     // Create the task focus element
     const focusEl = document.createElement('div');
     taskEl.classList.add('task-focus');
-    focusEl.innerText = task.focus === true ? '🔆' : '\u25cc';
+    focusEl.innerText = task.focus === true ? '🔆' : '🫥';
     taskEl.appendChild(focusEl);
     // Make the task focus element toggle on click
     focusEl.addEventListener('click', () => {
       task.focus = !task.focus;
-      focusEl.innerText = task.focus === true ? '🔆' : '\u25cc';
+      focusEl.innerText = task.focus === true ? '🔆' : '🫥';
+      localStorage.tasks = JSON.stringify(taskList);
     });
 
     // Create the task status element, make it a drop down list
@@ -47,6 +48,7 @@ function displayTasks(taskList) {
     // Allow user to change task staus
     stateEl.addEventListener('change', () => {
       task.state = stateEl.selectedIndex;
+      localStorage.tasks = JSON.stringify(taskList);
     });
 
     // Create the task description input element
@@ -58,6 +60,7 @@ function displayTasks(taskList) {
     // Allow user to change task description
     descriptionEl.addEventListener('change', () => {
       task.description = descriptionEl.value;
+      localStorage.tasks = JSON.stringify(taskList);
     });
 
     // TO DO
@@ -75,6 +78,7 @@ function displayTasks(taskList) {
     // Allow user the change the start date
     startDateEl.addEventListener('change', () => {
       task.startDate = startDateEl.value;
+      localStorage.tasks = JSON.stringify(taskList);
     });
 
     // Create the task due date element
@@ -86,6 +90,7 @@ function displayTasks(taskList) {
     // Allow user to change the due date
     dueDateEl.addEventListener('change', () => {
       task.dueDate = dueDateEl.value;
+      localStorage.tasks = JSON.stringify(taskList);
     });
 
     // TO DO
@@ -101,6 +106,7 @@ function displayTasks(taskList) {
     deleteEl.addEventListener('click', () => {
       taskList.splice(taskList.indexOf(task), 1);
       listEl.removeChild(taskEl);
+      localStorage.tasks = JSON.stringify(taskList);
     });
 
     // Add the task to display

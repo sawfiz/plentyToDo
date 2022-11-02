@@ -7,19 +7,14 @@ function displayTasks(taskList) {
     taskEl.classList.add('task');
     
     const focusEl = document.createElement('div');
-    taskEl.classList.add('task-item');
-    focusEl.innerText = '🔆';
-    // focusEl.classList.add('mdi', 'mdi-flare');
+    taskEl.classList.add('task-focus');
+    focusEl.innerText = (task.focus === true) ? '🔆': '\u25cc';
     taskEl.appendChild(focusEl);
-
-    // const completeEl = document.createElement('input');
-    // completeEl.setAttribute('type', 'checkbox');
-    // // completeEl.classList.add('mdi', 'mdi-checkbox-blank-outline');
-    // taskEl.appendChild(completeEl);
-    // completeEl.addEventListener('change', () => {
-    //   task.complete = completeEl.checked;
-    //   console.log(task);
-    // });
+    focusEl.addEventListener('click', () => {
+        task.focus = !task.focus;
+        console.log(task);
+        focusEl.innerText = (task.focus === true) ? '🔆': '\u25cc';
+    })
 
     const stateEl = document.createElement('select');
     stateEl.classList.add('task-item');
@@ -30,12 +25,12 @@ function displayTasks(taskList) {
     stateEl.appendChild(toDoEl);
     //
     const doingEl = document.createElement('option');
-    t = document.createTextNode('🟠');
+    t = document.createTextNode('🏃🏻‍♂️');
     doingEl.appendChild(t);
     stateEl.appendChild(doingEl);
     //
     const awaitEl = document.createElement('option');
-    t = document.createTextNode('\u231b');
+    t = document.createTextNode('\u23f3');
     awaitEl.appendChild(t);
     stateEl.appendChild(awaitEl);
     //

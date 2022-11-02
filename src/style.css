@@ -215,8 +215,12 @@ ul {
   outline: 1px solid #bb9981;
 }
 
-.task-item {
+.task-focus, .task-item {
   text-align: center;
+}
+
+.task-focus {
+  cursor: pointer;
 }
 
 .task-task {

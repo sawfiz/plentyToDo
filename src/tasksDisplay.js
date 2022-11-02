@@ -6,10 +6,15 @@ const tasksDisplay = (() => {
   let startDatetSortAscend = true;
   let dueDatetSortAscend = true;
 
-  function displayTasks(taskList) {
+  function displayTasks(taskList, hideCompletedTasks) {
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
 
+    // First filte out the completed tasks
+    if (hideCompletedTasks === true) {
+      taskList = taskList.filter(task => task.state !== 3)
+    }
+  
     taskList.forEach((task) => {
       // Creat a new task element for display
       const taskEl = document.createElement('div');

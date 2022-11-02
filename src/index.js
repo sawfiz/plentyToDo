@@ -2,10 +2,13 @@ import taskFactory from './task';
 import help from './sidebar';
 import tasksDisplay from './tasksDisplay';
 
+let hideCompletedTasks = false;
+
 // Get allTasks from local storage
 let allTasks = JSON.parse(localStorage.getItem('tasks'));
 if (allTasks === null) allTasks = [];
-tasksDisplay.displayTasks(allTasks);
+tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
+
 
 function initApp() {
   // Activate help
@@ -20,6 +23,14 @@ function initApp() {
   tasksDisplay.sortDueDate(allTasks);
 }
 initApp();
+
+const setHideCompletedTasks = (() => {
+  const hideCompletedEl = document.querySelector('#hide-completed')
+  hideCompletedEl.addEventListener('change', () => {
+    hideCompletedTasks = hideCompletedEl.checked;
+    tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
+  })
+})();
 
 const toDoApp = (() => {
   const bigAddBtn = document.querySelector('.big-add');
@@ -76,12 +87,10 @@ const toDoApp = (() => {
     // Insert the new task at the beginning of the allTasks list
     allTasks.unshift(newTask);
     localStorage.tasks = JSON.stringify(allTasks);
-    tasksDisplay.displayTasks(allTasks);
+    tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
     // Focus the cursor on the new task's description input field
     document.querySelector('.task-task').focus();
   });
-
-
 
 })();
 

@@ -1,14 +1,20 @@
 const tasksDisplay = (() => {
+  let focusSortAscend = true;
+  let statusSortAscend = true;
+  let descriptionSortAscend = true;
+  let projectSortAscend = true;
+  let startDatetSortAscend = true;
+  let dueDatetSortAscend = true;
 
   function displayTasks(taskList) {
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
-  
+
     taskList.forEach((task) => {
       // Creat a new task element for display
       const taskEl = document.createElement('div');
       taskEl.classList.add('task');
-  
+
       // Create the task focus element
       const focusEl = document.createElement('div');
       taskEl.classList.add('task-focus');
@@ -20,7 +26,7 @@ const tasksDisplay = (() => {
         focusEl.innerText = task.focus === true ? '🔆' : '🫥';
         localStorage.tasks = JSON.stringify(taskList);
       });
-  
+
       // Create the task status element, make it a drop down list
       const stateEl = document.createElement('select');
       stateEl.classList.add('task-item');
@@ -52,7 +58,7 @@ const tasksDisplay = (() => {
         task.state = stateEl.selectedIndex;
         localStorage.tasks = JSON.stringify(taskList);
       });
-  
+
       // Create the task description input element
       const descriptionEl = document.createElement('input');
       descriptionEl.classList.add('task-task');
@@ -64,13 +70,13 @@ const tasksDisplay = (() => {
         task.description = descriptionEl.value;
         localStorage.tasks = JSON.stringify(taskList);
       });
-  
+
       // TO DO
       const projectEl = document.createElement('div');
       projectEl.classList.add('task-item');
       projectEl.innerText = task.project;
       taskEl.appendChild(projectEl);
-  
+
       // Create the task start date element
       const startDateEl = document.createElement('input');
       startDateEl.classList.add('task-item');
@@ -82,7 +88,7 @@ const tasksDisplay = (() => {
         task.startDate = startDateEl.value;
         localStorage.tasks = JSON.stringify(taskList);
       });
-  
+
       // Create the task due date element
       const dueDateEl = document.createElement('input');
       dueDateEl.classList.add('task-item');
@@ -94,12 +100,12 @@ const tasksDisplay = (() => {
         task.dueDate = dueDateEl.value;
         localStorage.tasks = JSON.stringify(taskList);
       });
-  
+
       // TO DO
       const recurEl = document.createElement('div');
       recurEl.classList.add('task-item', 'mdi', 'mdi-repeat');
       taskEl.appendChild(recurEl);
-  
+
       // Create the task delete element
       const deleteEl = document.createElement('div');
       deleteEl.innerText = '⌫';
@@ -110,17 +116,76 @@ const tasksDisplay = (() => {
         listEl.removeChild(taskEl);
         localStorage.tasks = JSON.stringify(taskList);
       });
-  
+
       // Add the task to display
       listEl.appendChild(taskEl);
     });
   }
 
-  return {displayTasks}
+  function sortByKey(array, key, sortAscend) {
+    return array.sort((a, b) => {
+      if (sortAscend) {
+        return a[key] < b[key] ? -1 : 1;
+      }
+      return a[key] > b[key] ? -1 : 1;
+    });
+  }
+
+  function sortFocus(taskList) {
+    const sortFoucsEl = document.querySelector('#focus-sort');
+    sortFoucsEl.addEventListener('click', () => {
+      sortByKey(taskList, 'focus', focusSortAscend);
+      displayTasks(taskList);
+      focusSortAscend = !focusSortAscend;
+    });
+  }
+
+  function sortStatus(taskList) {
+    const sortStatusEl = document.querySelector('#status-sort');
+    sortStatusEl.addEventListener('click', () => {
+      sortByKey(taskList, 'state', statusSortAscend);
+      displayTasks(taskList);
+      statusSortAscend = !statusSortAscend;
+    });
+  }
+
+  function sortDescription(taskList) {
+    const sortDescriptionEl = document.querySelector('#description-sort');
+    sortDescriptionEl.addEventListener('click', () => {
+      sortByKey(taskList, 'description', descriptionSortAscend);
+      displayTasks(taskList);
+      descriptionSortAscend = !descriptionSortAscend;
+    });
+  }
+
+  function sortProject(taskList) {
+    const sortProjectEl = document.querySelector('#project-sort');
+    sortProjectEl.addEventListener('click', () => {
+      sortByKey(taskList, 'project', projectSortAscend);
+      displayTasks(taskList);
+      projectSortAscend = !projectSortAscend;
+    });
+  }
+
+  function sortStartDate(taskList) {
+    const sortStartDateEl = document.querySelector('#start-date-sort');
+    sortStartDateEl.addEventListener('click', () => {
+      sortByKey(taskList, 'startDate', startDatetSortAscend);
+      displayTasks(taskList);
+      startDatetSortAscend = !startDatetSortAscend;
+    });
+  }
+
+  function sortDueDate(taskList) {
+    const sortDueDateEl = document.querySelector('#due-date-sort');
+    sortDueDateEl.addEventListener('click', () => {
+      sortByKey(taskList, 'dueDate', dueDatetSortAscend);
+      displayTasks(taskList);
+      dueDatetSortAscend = !dueDatetSortAscend;
+    });
+  }
+
+  return { displayTasks, sortFocus, sortStatus, sortDescription, sortProject, sortStartDate, sortDueDate };
 })();
 
-
-
-
 export default tasksDisplay;
-// export default displayTasks;

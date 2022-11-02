@@ -15,6 +15,8 @@
         <h1>Plenty To Do</h1>
         <!-- <div class="big-add"><span class="mdi mdi-plus-circle-outline"></span></div> -->
         <div class="big-add">+</div>
+        <label for="hide-complete">Hide completed tasks</label>
+        <input type="checkbox" name="hide-complete" id="hide-complete">
         <div class="quote"><em>“All our dreams can come true, if we have the courage to pursue them.”</em>
             <p>—Walt Disney</p>
         </div>
@@ -90,12 +92,12 @@
         </div>
         <div class="content">
             <div class="task">
-                <div class="task-item">Focus <span class="mdi mdi-sort-bool-ascending"></span></div>
-                <div class="task-item">Status <span class="mdi mdi-sort-bool-ascending-variant"></span></div>
-                <div class="task-item">Task <span class="mdi mdi-sort-alphabetical-ascending"></span></div>
-                <div class="task-item">Project <span class="task-item mdi mdi-sort-alphabetical-ascending"></span></div>
-                <div class="task-item">Start Date <span class="task-item mdi mdi-sort-calendar-ascending"></span></div>
-                <div class="task-item">Due Date <span class="task-item mdi mdi-sort-calendar-ascending"></span></div>
+                <div class="task-item" id="focus-sort">Focus <span class="mdi mdi-sort-bool-ascending"></span></div>
+                <div class="task-item" id="status-sort">Status <span class="mdi mdi-sort-bool-ascending-variant"></span></div>
+                <div class="task-item" id="description-sort">Task <span class="mdi mdi-sort-alphabetical-ascending"></span></div>
+                <div class="task-item" id="project-sort">Project <span class="task-item mdi mdi-sort-alphabetical-ascending"></span></div>
+                <div class="task-item" id="start-date-sort">Start Date <span class="task-item mdi mdi-sort-calendar-ascending"></span></div>
+                <div class="task-item" id="due-date-sort">Due Date <span class="task-item mdi mdi-sort-calendar-ascending"></span></div>
                 <div class="task-item"></div>
                 <div class="task-item"></div>
             </div>

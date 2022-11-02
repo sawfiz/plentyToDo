@@ -60,6 +60,11 @@ h1 {
   transform: translateY(5%);
 }
 
+label {
+  color: white;
+  padding: 0 1rem;
+}
+
 .quote {
   flex: 1;
   padding: 0.5rem;
@@ -210,23 +215,35 @@ ul {
   display: grid;
   grid-template-columns: 3fr 3fr 20fr 4fr 4fr 4fr 1fr 1fr;
   gap: 0.5rem;
-  border-bottom:1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
   margin: 3px 0;
   padding: 0.5rem 0;
 }
 
-.task-item, .task-task {
+#focus-sort,
+#status-sort,
+#description-sort,
+#project-sort,
+#start-date-sort,
+#due-date-sort {
+  cursor: pointer;
+}
+
+.task-item,
+.task-task {
   background-color: var(--lighter-color);
   border: none;
   outline: none;
   font-size: 1rem;
 }
 
-.task-item:focus, .task-task:focus {
+.task-item:focus,
+.task-task:focus {
   outline: 1px solid #bb9981;
 }
 
-.task-focus, .task-item {
+.task-focus,
+.task-item {
   text-align: center;
 }
 
@@ -240,10 +257,10 @@ ul {
 }
 
 /* Hide calendar icon in date input */
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
 }
 
 footer {
@@ -251,8 +268,6 @@ footer {
   text-align: center;
   color: white;
 }
-
-
 
 .modal {
   position: fixed;

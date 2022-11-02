@@ -2,13 +2,24 @@ import taskFactory from './task';
 import help from './sidebar';
 import tasksDisplay from './tasksDisplay';
 
-// Activate help
-help.toggleHelp();
-
 // Get allTasks from local storage
 let allTasks = JSON.parse(localStorage.getItem('tasks'));
 if (allTasks === null) allTasks = [];
 tasksDisplay.displayTasks(allTasks);
+
+function initApp() {
+  // Activate help
+  help.toggleHelp();
+
+  // Activate sort functions
+  tasksDisplay.sortFocus(allTasks);
+  tasksDisplay.sortStatus(allTasks);
+  tasksDisplay.sortDescription(allTasks);
+  tasksDisplay.sortProject(allTasks);
+  tasksDisplay.sortStartDate(allTasks);
+  tasksDisplay.sortDueDate(allTasks);
+}
+initApp();
 
 const toDoApp = (() => {
   const bigAddBtn = document.querySelector('.big-add');
@@ -69,6 +80,9 @@ const toDoApp = (() => {
     // Focus the cursor on the new task's description input field
     document.querySelector('.task-task').focus();
   });
+
+
+
 })();
 
 //   // Modal functions

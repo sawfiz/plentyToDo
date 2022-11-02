@@ -6,6 +6,10 @@
   --dark-color: #bb9981;
   --light-color: #c5d8a4;
   --lighter-color: #f4fcd9;
+  --shade: #fff3;
+  --h2: 1.2rem;
+  --h3: 1.1rem;
+  --p: 1rem;
 }
 
 * {
@@ -26,18 +30,20 @@ body {
 .header {
   background-color: var(--darker-color);
   display: flex;
+  align-items: center;
   box-shadow: 0 4px 8px rgb(0, 0, 0, 0.5);
   z-index: 10;
 }
 
 h1 {
   width: clamp(150px, 20%, 300px);
+  font-size: clamp(1.3rem, 2.65vw, 2.3rem);
   padding: 0.5rem 1rem;
   color: white;
   text-shadow: 1px 1px 4px #000;
 }
 
-.mdi.mdi-plus-circle-outline {
+.big-add {
   padding: 0 1rem;
   background-color: var(--light-color);
   font-size: 3rem;
@@ -45,7 +51,7 @@ h1 {
   text-shadow: 1px 1px 4px #000;
 }
 
-.mdi.mdi-plus-circle-outline:hover {
+.big-add:hover {
   color: var(--darker-color);
   text-shadow: none;
 }
@@ -56,13 +62,9 @@ h1 {
 
 .quote {
   flex: 1;
-  padding: 1rem;
+  padding: 0.5rem;
   color: white;
   text-align: right;
-}
-
-.mdi.mdi-plus-circle-outline:hover {
-  cursor: pointer;
 }
 
 main {
@@ -81,13 +83,15 @@ main {
 
 .views,
 .groups,
-.inbox-container {
+.inbox-container,
+.help-container {
   border: 1px dashed #000;
   padding: 0.5rem;
 }
 
 .inbox,
 .groups-header,
+.group-header,
 .project-container {
   display: flex;
   justify-content: space-between;
@@ -97,7 +101,7 @@ main {
 .view,
 .inbox-count {
   line-height: 1.3rem;
-  font-size: 1.1rem;
+  font-size: var(--h2);
   margin: 0.2rem 0;
 }
 
@@ -107,13 +111,15 @@ main {
 }
 
 .view:hover {
-  background-color: var(--light-color);
+  background-color: var(--shade);
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+  border-radius: 0 10px 10px 0;
 }
 
 .view.active {
-  background-color: var(--light-color);
+  background-color: var(--shade);
+  border-radius: 0 10px 10px 0;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 900;
 }
@@ -124,6 +130,7 @@ main {
 
 .groups {
   padding: 0.5rem;
+  font-size: var(--h2);
 }
 
 ul {
@@ -132,12 +139,12 @@ ul {
 
 .group-header {
   display: grid;
-  grid-template-columns: 8fr 1fr 1fr;
+  grid-template-columns: 10fr 1fr 1fr;
 }
 
 .group,
 .group-count {
-  font-size: 1.25rem;
+  font-size: var(--h3);
 }
 
 .group-count,
@@ -151,24 +158,36 @@ ul {
 
 .project {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: var(--p);
   list-style-type: disc;
 }
 
 .project-count {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: var(--p);
 }
 
-.add {
-  font-size: 1.5rem;
+.edit-group,
+.edit-group {
   cursor: pointer;
   padding: 0 1rem;
 }
 
-.add:hover {
+.edit-groups:hover,
+.edit-group:hover {
   text-shadow: 0px 0px 4px var(--lighter-color);
   color: white;
+}
+
+.help {
+  cursor: pointer;
+  font-size: var(--h2);
+}
+
+.help p {
+  font-family: 'Quicksand';
+  font-size: var(--p);
+  padding-left: 1rem;
 }
 
 .content {
@@ -177,14 +196,104 @@ ul {
   padding: 1rem;
 }
 
+.section {
+  margin: 1rem 0;
+}
+
+.section-header {
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0.2rem 0;
+}
+
 .task {
   display: grid;
-  grid-template-columns: 1fr 1fr 20fr 10fr 10fr 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 2fr 2fr 20fr 4fr 4fr 4fr 1fr 1fr;
+  gap: 0.5rem;
+  border-bottom:1px dashed #ccc;
+  margin: 3px 0;
+  padding: 0.5rem 0;
+}
+
+.task-item, .task-task {
+  background-color: var(--lighter-color);
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.task-item:focus, .task-task:focus {
+  outline: 1px solid #bb9981;
+}
+
+.task-focus, .task-item {
+  text-align: center;
+}
+
+.task-focus {
+  cursor: pointer;
+}
+
+.task-task {
+  flex: 1;
+  padding: 0 0.5rem;
+}
+
+/* Hide calendar icon in date input */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
 }
 
 footer {
   background-color: var(--darker-color);
   text-align: center;
   color: white;
+}
+
+
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border: 1px solid #000;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: ease-in-out 0.5s;
+  z-index: 10;
+}
+
+.modal.active {
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+  scale: 1;
+}
+
+.overlay {
+  opacity: 0.3;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  pointer-events: none;
+  transition: 0.5s ease-in-out;
+}
+
+.overlay.active {
+  background-color: black;
+  opacity: 0.5;
+  pointer-events: all;
+}
+
+#add-task-dialog {
+  padding: 1rem;
+  background-color: var(--light-color);
+}
+
+#add-task-dialog li {
+  display: flex;
+  justify-content: space-between;
 }

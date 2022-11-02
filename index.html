@@ -6,41 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plenty To Do</title>
-    <link rel="stylesheet" href="20c800a1f65f2efd0a14.css">
+    <link rel="stylesheet" href="bd7fc988300c87ebbf0f.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
 <script defer src="main.js"></script></head>
 
 <body>
     <div class="header">
         <h1>Plenty To Do</h1>
-        <div class="big-add"><span class="mdi mdi-plus-circle-outline"></span></div>
-        <div class="quote">Quote of the day</div>
+        <!-- <div class="big-add"><span class="mdi mdi-plus-circle-outline"></span></div> -->
+        <div class="big-add">+</div>
+        <div class="quote"><em>“All our dreams can come true, if we have the courage to pursue them.”</em>
+            <p>—Walt Disney</p>
+        </div>
     </div>
     <main>
         <div class="sidebar">
             <div class="inbox-container">
-                <div class="inbox view">
+                <div class="inbox view active">
                     <div class="mdi mdi-tray-plus"> Inbox</div>
                     <div class="inbox-count">8</div>
                 </div>
             </div>
             <div class="views">
                 <div class="view mdi mdi-calendar-today"> Today</div>
-                <div class="view active mdi mdi-calendar-range"> Next 7 days</div>
+                <div class="view mdi mdi-calendar-range"> Next 7 days</div>
                 <div class="view mdi mdi-calendar-month"> All</div>
+                <div class="view mdi mdi-calendar-blank"> No Date</div>
                 <div class="view mdi mdi-check-circle-outline"> Done</div>
             </div>
             <div class="groups">
                 <div class="groups-header">
                     <span class="mdi mdi-format-list-group"> Groups</span>
-                    <span class="add">+</span>
+                    <span class="edit-groups mdi mdi-square-edit-outline"></span>
                 </div>
                 <ul>
                     <li>
                         <div class="group-header">
                             <div class="group mdi mdi-chevron-down"> Pesonal</div>
                             <div class="groun-count"></div>
-                            <div class="add">+</div>
+                            <div class="edit-group mdi mdi-square-edit-outline"></div>
                         </div>
                         <ul>
                             <li class="project-container view">
@@ -62,64 +66,97 @@
                         <div class="group-header">
                             <div class="group mdi mdi-chevron-right"> Family</div>
                             <div class="group-count">7</div>
-                            <div class="add">+</div>
+                            <div class="edit-group mdi mdi-square-edit-outline"></div>
                         </div>
                         <ul>
 
                         </ul>
                     </li>
             </div>
+            <div class="help-container">
+                <div class="help">▹ Help</div>
+                <template>
+                    <div>
+                        <p>🔆 Focus of today</p>
+                        <p>⭕️ Not started</p>
+                        <p>🌗 Work in progress</p>
+                        <p>⏳ Waiting for others</p>
+                        <p>✅ Done</p>
+                        <p>⌫ Delete</p>
+                    </div>
+                </template>
+            </div>
         </div>
         </div>
         <div class="content">
             <div class="task">
-                <div class="focus"></div>
-                <div class="checkbox"></div>
-                <div class="description">Description</div>
-                <div class="start">Start Date</div>
-                <div class="due">Due Date</div>
-                <div class="recur"></div>
-                <div class="edit"></div>
-
+                <div class="task-item">Focus</div>
+                <div class="task-item">Status</div>
+                <div class="task-item">Task</div>
+                <div class="task-item">Project</div>
+                <div class="task-item">Start Date</div>
+                <div class="task-item">Due Date</div>
+                <div class="task-item"></div>
+                <div class="task-item"></div>
             </div>
-            <div class="section">
-                <div class="section-header">Personal</div>
-                <div class="task">
-                    <div class="focus mdi mdi-flare"></div>
-                    <div class="check mdi mdi-checkbox-blank-outline"></div>
-                    <div class="description">do this</div>
-                    <div class="start">2022-10-30</div>
-                    <div class="due">2022-11-08</div>
-                    <div class="recur mdi mdi-repeat"></div>
-                    <div class="edit mdi mdi-square-edit-outline"></div>
 
-                </div>
-                <div class="task">
-                    <div class=""></div>
-                    <div class="check mdi mdi-checkbox-blank-outline"></div>
-                    <div class="description">do this Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo
-                        mollitia, voluptatem praesentium minima, voluptate tempora, eos corporis excepturi fuga odit
-                        officia commodi. Cumque ipsum ut hic. Possimus debitis saepe odit!</div>
-                    <div class="start">2022-10-30</div>
-                    <div class="due">2022-11-08</div>
-                    <div class="recur"></div>
-                    <div class="edit mdi mdi-square-edit-outline"></div>
-
-                </div>
-                <div class="task">
-                    <div class="focus mdi mdi-flare"></div>
-                    <div class="check mdi mdi-checkbox-blank-outline"></div>
-                    <div class="description">do this</div>
-                    <div class="start">2022-10-30</div>
-                    <div class="due">2022-11-08</div>
-                    <div class="recur mdi mdi-repeat"></div>
-                    <div class="edit mdi mdi-square-edit-outline"></div>
-
+            <div class="tasks">
+                <div class="section">
+                    <div class="section-header">Personal</div>
                 </div>
             </div>
         </div>
     </main>
+
     <footer>Copyright sawfiz@github</footer>
+
+    <form class="modal" id="add-task-dialog">
+        <fieldset>
+            <legend>Task Details</legend>
+            <ul>
+                <li>
+                    <label for="focus">Focus today</label>
+                    <input type="checkbox" name="focus" id="focus">
+                </li>
+                <li>
+                    <label for="complete">Compelete</label>
+                    <input type="checkbox" name="complete" id="complete">
+                </li>
+                <li>
+                    <label for="state">State</label>
+                    <select name="state" id="state">
+                        <option value="To Do">To Do</option>
+                        <option value="Doing">Doing</option>
+                        <option value="Await">Await</option>
+                        <option value="Done">Done</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description">
+                </li>
+                <li>
+                    <label for="group">Group</label>
+                    <input type="text" name="group" id="group">
+                </li>
+                <li>
+                    <label for="task-project">Project</label>
+                    <input type="text" name="task-project" id="task-project" value="Inbox">
+                </li>
+                <li>
+                    <label for="start-date">Start date</label>
+                    <input type="date" name="start-date" id="start-date">
+                </li>
+                <li>
+                    <label for="due-date">Due date</label>
+                    <input type="date" name="due-date" id="due-date">
+                </li>
+            </ul>
+        </fieldset>
+        <button type="reset">Reset</button>
+        <button type="submit" id="add-task-submit">Submit</button>
+    </form>
+    <div class="overlay"></div>
 </body>
 
 </html>

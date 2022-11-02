@@ -22,7 +22,7 @@ A project based on the Project: Todo List in the Javascript course, the Odin Pro
 ### Webpack
 - Include my HTML code into the dist/index.html
 - [HTML Webpack Plugin](https://github.com/jantimon/html-webpack-plugin)
-  - I think the following is what I need to make it work
+  - The following is what's needed to make it work from [here](https://github.com/jantimon/html-webpack-plugin/blob/main/docs/template-option.md)
   ```js
   {
     module: {

@@ -1,10 +1,13 @@
 import taskFactory from './task';
+import help from './sidebar';
 import displayTasks from './tasklist';
 
+// Activate help
+help.toggleHelp();
+
+// Get allTasks from local storage
 let allTasks = JSON.parse(localStorage.getItem('tasks'));
 if (allTasks === null) allTasks = [];
-
-console.log(allTasks);
 displayTasks(allTasks);
 
 const toDoApp = (() => {
@@ -21,19 +24,6 @@ const toDoApp = (() => {
   const dueDateInput = document.querySelector('#due-date');
 
   const addTaskSubmitBtn = document.querySelector('#add-task-submit');
-
-  // Modal functions
-  function openModal(modal) {
-    if (modal === null) return;
-    modal.classList.add('active');
-    overlayEl.classList.add('active');
-  }
-
-  function closeModal(modal) {
-    if (modal === null) return;
-    modal.classList.remove('active');
-    overlayEl.classList.remove('active');
-  }
 
   function getToday() {
     const date = new Date();
@@ -79,19 +69,32 @@ const toDoApp = (() => {
     // Focus the cursor on the new task's description input field
     document.querySelector('.task-task').focus();
   });
-
-  //   addTaskSubmitBtn.addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     console.log(newTask);
-  //     closeModal(addTaskDialog);
-  //     console.log(allTasks);
-  //   });
-
-  //   // Click outside of a popup closes the popup
-  //   overlayEl.addEventListener('click', () => {
-  //     const modalsEl = document.querySelectorAll('.modal.active');
-  //     modalsEl.forEach((modal) => {
-  //       closeModal(modal);
-  //     });
-  //   });
 })();
+
+//   // Modal functions
+//   function openModal(modal) {
+//     if (modal === null) return;
+//     modal.classList.add('active');
+//     overlayEl.classList.add('active');
+//   }
+
+//   function closeModal(modal) {
+//     if (modal === null) return;
+//     modal.classList.remove('active');
+//     overlayEl.classList.remove('active');
+//   }
+
+//   addTaskSubmitBtn.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     console.log(newTask);
+//     closeModal(addTaskDialog);
+//     console.log(allTasks);
+//   });
+
+//   // Click outside of a popup closes the popup
+//   overlayEl.addEventListener('click', () => {
+//     const modalsEl = document.querySelectorAll('.modal.active');
+//     modalsEl.forEach((modal) => {
+//       closeModal(modal);
+//     });
+//   });

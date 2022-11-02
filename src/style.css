@@ -7,6 +7,9 @@
   --light-color: #c5d8a4;
   --lighter-color: #f4fcd9;
   --shade: #fff3;
+  --h2: 1.2rem;
+  --h3: 1.1rem;
+  --p: 1rem;
 }
 
 * {
@@ -40,7 +43,7 @@ h1 {
   text-shadow: 1px 1px 4px #000;
 }
 
-.mdi.mdi-plus-circle-outline {
+.big-add {
   padding: 0 1rem;
   background-color: var(--light-color);
   font-size: 3rem;
@@ -48,7 +51,7 @@ h1 {
   text-shadow: 1px 1px 4px #000;
 }
 
-.mdi.mdi-plus-circle-outline:hover {
+.big-add:hover {
   color: var(--darker-color);
   text-shadow: none;
 }
@@ -62,10 +65,6 @@ h1 {
   padding: 0.5rem;
   color: white;
   text-align: right;
-}
-
-.mdi.mdi-plus-circle-outline:hover {
-  cursor: pointer;
 }
 
 main {
@@ -84,7 +83,8 @@ main {
 
 .views,
 .groups,
-.inbox-container {
+.inbox-container,
+.help-container {
   border: 1px dashed #000;
   padding: 0.5rem;
 }
@@ -101,7 +101,7 @@ main {
 .view,
 .inbox-count {
   line-height: 1.3rem;
-  font-size: 1.1rem;
+  font-size: var(--h2);
   margin: 0.2rem 0;
 }
 
@@ -130,7 +130,7 @@ main {
 
 .groups {
   padding: 0.5rem;
-  font-size: 1.25rem;
+  font-size: var(--h2);
 }
 
 ul {
@@ -144,7 +144,7 @@ ul {
 
 .group,
 .group-count {
-  font-size: 1.1rem;
+  font-size: var(--h3);
 }
 
 .group-count,
@@ -158,13 +158,13 @@ ul {
 
 .project {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: var(--p);
   list-style-type: disc;
 }
 
 .project-count {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: var(--p);
 }
 
 .edit-group,
@@ -177,6 +177,17 @@ ul {
 .edit-group:hover {
   text-shadow: 0px 0px 4px var(--lighter-color);
   color: white;
+}
+
+.help {
+  cursor: pointer;
+  font-size: var(--h2);
+}
+
+.help p {
+  font-family: 'Quicksand';
+  font-size: var(--p);
+  padding-left: 1rem;
 }
 
 .content {

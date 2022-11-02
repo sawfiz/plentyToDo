@@ -58,26 +58,26 @@ const toDoApp = (() => {
   // Open the add a new task modal
   bigAddBtn.addEventListener('click', () => {
     initInputs();
-    openModal(addTaskDialog);
+    // openModal(addTaskDialog);
+    const newTask = taskFactory(
+      false,
+      '0',
+      '',
+      '',
+      'Inbox',
+      getToday(),
+      getToday()
+    );
+    allTasks.unshift(newTask);
+    displayTasks(allTasks);
+    document.querySelector('.task-task').focus()
   });
 
   addTaskSubmitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const newTask = taskFactory(
-      focusInput.checked,
-      completeInput.checked,
-      stateInput.value,
-      descriptionInput.value,
-      groupInput.value,
-      projectInput.value,
-      startDateInput.value,
-      dueDateInput.value
-    );
     console.log(newTask);
     closeModal(addTaskDialog);
-    allTasks.push(newTask);
     console.log(allTasks);
-    displayTasks(allTasks);
   });
 
   // Click outside of a popup closes the popup

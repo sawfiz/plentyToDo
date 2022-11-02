@@ -3,14 +3,15 @@ const tasksDisplay = (() => {
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
     let filteredList = taskList;
+    console.log('1',filteredList);
 
     console.log('aa', hideCompletedTasks);
     // First filte out the completed tasks
     if (hideCompletedTasks === true) {
       filteredList = taskList.filter((task) => task.state !== 3);
-      console.log(filteredList);
+      console.log("2", filteredList);
     }
-
+    console.log('3',filteredList);
     filteredList.forEach((task) => {
       // Creat a new task element for display
       const taskEl = document.createElement('div');
@@ -64,12 +65,15 @@ const tasksDisplay = (() => {
       });
 
       // Create the task description input element
-      const descriptionEl = document.createElement('input');
+      const descriptionEl = document.createElement('textarea');
       descriptionEl.classList.add('task-task');
-      descriptionEl.setAttribute('type', 'text');
       descriptionEl.value = task.description;
       taskEl.appendChild(descriptionEl);
       // Allow user to change task description
+      descriptionEl.addEventListener('keyup', (e) => {
+        let scHeight = e.target.scrollHeight;
+        descriptionEl.style.height = `${scHeight}px`;
+      });
       descriptionEl.addEventListener('change', () => {
         task.description = descriptionEl.value;
         localStorage.tasks = JSON.stringify(taskList);
@@ -85,6 +89,7 @@ const tasksDisplay = (() => {
       const startDateEl = document.createElement('input');
       startDateEl.classList.add('task-item');
       startDateEl.setAttribute('type', 'date');
+      startDateEl.setAttribute('required', '');
       startDateEl.value = task.startDate;
       taskEl.appendChild(startDateEl);
       // Allow user the change the start date
@@ -97,6 +102,7 @@ const tasksDisplay = (() => {
       const dueDateEl = document.createElement('input');
       dueDateEl.classList.add('task-item');
       dueDateEl.setAttribute('type', 'date');
+      dueDateEl.setAttribute('required', '');
       dueDateEl.value = task.dueDate;
       taskEl.appendChild(dueDateEl);
       // Allow user to change the due date

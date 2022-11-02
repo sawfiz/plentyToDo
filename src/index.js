@@ -1,13 +1,14 @@
 import taskFactory from './task';
-import help from './sidebar';
+import help from './help';
 import tasksDisplay from './tasksDisplay';
+// import views from './views';
 
 let hideCompletedTasks = false;
 
 const setHideCompletedTasks = (() => {
   const hideCompletedEl = document.querySelector('#hide-completed');
   hideCompletedTasks = hideCompletedEl.checked;
-  console.log("MM",hideCompletedTasks);
+  console.log('MM', hideCompletedTasks);
   hideCompletedEl.addEventListener('change', () => {
     hideCompletedTasks = hideCompletedEl.checked;
     tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
@@ -23,6 +24,87 @@ tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
 
 // Active help section in the sidebar
 help.toggleHelp();
+
+function getToday() {
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  if (month < 10) month = '0' + month;
+  if (day < 10) day = '0' + day;
+
+  let today = year + '-' + month + '-' + day;
+  return today;
+}
+
+function get7Days() {
+  let date = new Date();
+  date.setDate(date.getDate() + 7);
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  if (month < 10) month = '0' + month;
+  if (day < 10) day = '0' + day;
+
+  let sevenDays = year + '-' + month + '-' + day;
+  console.log(sevenDays);
+  return sevenDays;
+}
+
+// Active views section in the sidebar
+const views = (() => {
+  const viewsEls = Array.from(document.querySelectorAll('.view'));
+
+  viewsEls.forEach((viewEl) => {
+    viewEl.addEventListener('click', () => {
+      viewsEls.forEach((El) => {
+        El.classList.remove('active');
+      });
+      viewEl.classList.add('active');
+      switch (viewEl.innerText) {
+        case ' Today':
+          const todayList = allTasks.filter(
+            (task) =>
+              (task.startDate <= getToday() || task.dueDate <= getToday()) &&
+              task.startDate !== '' &&
+              task.dueDate !== ''
+          );
+          tasksDisplay.displayTasks(todayList, hideCompletedTasks);
+          break;
+        case ' Next 7 days':
+          console.log(viewEl.innerText);
+          const next7List = allTasks.filter(
+            (task) =>
+              (task.startDate > getToday() && task.startDate <= get7Days()) ||
+              (task.dueDate > getToday() && task.dueDate <= get7Days())
+          );
+          tasksDisplay.displayTasks(next7List, hideCompletedTasks);
+          break;
+        case ' All':
+          tasksDisplay.displayTasks(allTasks, false);
+          break;
+        case ' No Date':
+          console.log(viewEl.innerText);
+          const noDateList = allTasks.filter(
+            (task) => task.startDate === '' && task.dueDate === ''
+          );
+          tasksDisplay.displayTasks(noDateList, hideCompletedTasks);
+          break;
+        case ' Done':
+          const doneList = allTasks.filter((task) => task.state === 3);
+          tasksDisplay.displayTasks(doneList, false);
+          break;
+
+        default:
+          break;
+      }
+    });
+  });
+
+  return {};
+})();
 
 // Functions to sort the tasks
 const sortTasks = (() => {
@@ -64,7 +146,7 @@ const sortTasks = (() => {
     const sortDescriptionEl = document.querySelector('#description-sort');
     sortDescriptionEl.addEventListener('click', () => {
       sortByKey(taskList, 'description', descriptionSortAscend);
-      console.log("ss", setHideCompletedTasks);
+      console.log('ss', setHideCompletedTasks);
       tasksDisplay.displayTasks(taskList, hideCompletedTasks);
       descriptionSortAscend = !descriptionSortAscend;
     });
@@ -126,19 +208,6 @@ const toDoApp = (() => {
   const dueDateInput = document.querySelector('#due-date');
 
   const addTaskSubmitBtn = document.querySelector('#add-task-submit');
-
-  function getToday() {
-    const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    if (month < 10) month = '0' + month;
-    if (day < 10) day = '0' + day;
-
-    let today = year + '-' + month + '-' + day;
-    return today;
-  }
 
   function initInputs() {
     (focusInput.checked = false),

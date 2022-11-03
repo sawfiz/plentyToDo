@@ -1,11 +1,14 @@
 import { getToday, get7Days } from './util';
 
 const tasksDisplay = (() => {
-  function displayTasks(taskList, view, hideCompletedTasks) {
+  function displayTasks(taskList) {
+    // Get currentView and hideCompletedTasks from localStorage
+    const view = localStorage.getItem('currentView');
+    let hideCompletedTasks = JSON.parse(localStorage.getItem('hideCompletedTasks'));
+    
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
     let filteredList;
-    console.log(view);
 
     switch (view) {
       case 'Today':
@@ -45,6 +48,7 @@ const tasksDisplay = (() => {
     }
 
     // Hide completed tasks based on setting
+    console.log(hideCompletedTasks);
     if (hideCompletedTasks === true) {
       filteredList = filteredList.filter((task) => task.state !== 3);
     }
@@ -189,4 +193,98 @@ const tasksDisplay = (() => {
   return { displayTasks };
 })();
 
-export default tasksDisplay;
+// Functions to sort the tasks
+const sortTasks = (() => {
+  let focusSortAscend = true;
+  let statusSortAscend = true;
+  let descriptionSortAscend = true;
+  let projectSortAscend = true;
+  let startDatetSortAscend = true;
+  let dueDatetSortAscend = true;
+
+  function sortByKey(array, key, sortAscend) {
+    return array.sort((a, b) => {
+      if (sortAscend) {
+        return a[key] < b[key] ? -1 : 1;
+      }
+      return a[key] > b[key] ? -1 : 1;
+    });
+  }
+
+  function sortFocus(taskList) {
+    const sortFoucsEl = document.querySelector('#focus-sort');
+    sortFoucsEl.addEventListener('click', () => {
+      sortByKey(taskList, 'focus', focusSortAscend);
+      const currentView = localStorage.getItem('currentView');
+      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
+      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      focusSortAscend = !focusSortAscend;
+    });
+  }
+
+  function sortStatus(taskList) {
+    const sortStatusEl = document.querySelector('#status-sort');
+    sortStatusEl.addEventListener('click', () => {
+      sortByKey(taskList, 'state', statusSortAscend);
+      const currentView = localStorage.getItem('currentView');
+      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
+      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      statusSortAscend = !statusSortAscend;
+    });
+  }
+
+  function sortDescription(taskList) {
+    const sortDescriptionEl = document.querySelector('#description-sort');
+    sortDescriptionEl.addEventListener('click', () => {
+      sortByKey(taskList, 'description', descriptionSortAscend);
+      const currentView = localStorage.getItem('currentView');
+      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
+      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      descriptionSortAscend = !descriptionSortAscend;
+    });
+  }
+
+  function sortProject(taskList) {
+    const sortProjectEl = document.querySelector('#project-sort');
+    sortProjectEl.addEventListener('click', () => {
+      sortByKey(taskList, 'project', currentView, projectSortAscend);
+      const currentView = localStorage.getItem('currentView');
+      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
+      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      projectSortAscend = !projectSortAscend;
+    });
+  }
+
+  function sortStartDate(taskList) {
+    const sortStartDateEl = document.querySelector('#start-date-sort');
+    sortStartDateEl.addEventListener('click', () => {
+      sortByKey(taskList, 'startDate', startDatetSortAscend);
+      const currentView = localStorage.getItem('currentView');
+      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
+      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      startDatetSortAscend = !startDatetSortAscend;
+    });
+  }
+
+  function sortDueDate(taskList) {
+    const sortDueDateEl = document.querySelector('#due-date-sort');
+    sortDueDateEl.addEventListener('click', () => {
+      sortByKey(taskList, 'dueDate', dueDatetSortAscend);
+      const currentView = localStorage.getItem('currentView');
+      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
+      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      dueDatetSortAscend = !dueDatetSortAscend;
+    });
+  }
+
+  return {
+    sortFocus,
+    sortStatus,
+    sortDescription,
+    sortProject,
+    sortStartDate,
+    sortDueDate,
+  };
+})();
+
+export { tasksDisplay, sortTasks };

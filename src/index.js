@@ -1,32 +1,37 @@
 import taskFactory from './task';
 import help from './help';
-import tasksDisplay from './tasksDisplay';
-import { getToday, get7Days } from './util';
-// import getToday from './util';
-// import views from './views';
+import { tasksDisplay, sortTasks } from './tasksDisplay';
+import { getToday } from './util';
 
-let hideCompletedTasks = false;
+// Get currentView from localStorage.  Default to 'Today'
 let currentView = localStorage.getItem('currentView');
 if (currentView === null) currentView = 'Today';
 let currentViewEl = document.querySelector(`#${currentView}`);
 currentViewEl.classList.add('active');
 
+// Get hideCompletedTasks
 const setHideCompletedTasks = (() => {
   const hideCompletedEl = document.querySelector('#hide-completed');
-  hideCompletedTasks = hideCompletedEl.checked;
-  console.log('MM', hideCompletedTasks);
+  let hideCompletedTasks = JSON.parse(localStorage.getItem('hideCompletedTasks'));
+  console.log(hideCompletedTasks);
+  
+  if (hideCompletedTasks === null) {
+    hideCompletedTasks = hideCompletedEl.checked;
+    localStorage.setItem('hideCompletedTasks', hideCompletedTasks);
+  } else {
+    hideCompletedEl.checked = hideCompletedTasks;
+  }
   hideCompletedEl.addEventListener('change', () => {
     hideCompletedTasks = hideCompletedEl.checked;
-    tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
+    localStorage.setItem('hideCompletedTasks', hideCompletedTasks);
+    tasksDisplay.displayTasks(allTasks);
   });
-  // return { hide };
 })();
 
 // Get allTasks from local storage
 let allTasks = JSON.parse(localStorage.getItem('tasks'));
 if (allTasks === null) allTasks = [];
-console.log(allTasks);
-tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
+tasksDisplay.displayTasks(allTasks);
 
 // Active help section in the sidebar
 help.toggleHelp();
@@ -44,95 +49,13 @@ const views = (() => {
       // currentView = viewEl.innerText.trim();
       currentView = viewEl.id;
       localStorage.setItem('currentView', currentView);
-      tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
+      tasksDisplay.displayTasks(allTasks);
     });
   });
 
   return {};
 })();
 
-// Functions to sort the tasks
-const sortTasks = (() => {
-  let focusSortAscend = true;
-  let statusSortAscend = true;
-  let descriptionSortAscend = true;
-  let projectSortAscend = true;
-  let startDatetSortAscend = true;
-  let dueDatetSortAscend = true;
-
-  function sortByKey(array, key, sortAscend) {
-    return array.sort((a, b) => {
-      if (sortAscend) {
-        return a[key] < b[key] ? -1 : 1;
-      }
-      return a[key] > b[key] ? -1 : 1;
-    });
-  }
-
-  function sortFocus(taskList) {
-    const sortFoucsEl = document.querySelector('#focus-sort');
-    sortFoucsEl.addEventListener('click', () => {
-      sortByKey(taskList, 'focus', focusSortAscend);
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
-      focusSortAscend = !focusSortAscend;
-    });
-  }
-
-  function sortStatus(taskList) {
-    const sortStatusEl = document.querySelector('#status-sort');
-    sortStatusEl.addEventListener('click', () => {
-      sortByKey(taskList, 'state', statusSortAscend);
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
-      statusSortAscend = !statusSortAscend;
-    });
-  }
-
-  function sortDescription(taskList) {
-    const sortDescriptionEl = document.querySelector('#description-sort');
-    sortDescriptionEl.addEventListener('click', () => {
-      sortByKey(taskList, 'description', descriptionSortAscend);
-      console.log('ss', setHideCompletedTasks);
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
-      descriptionSortAscend = !descriptionSortAscend;
-    });
-  }
-
-  function sortProject(taskList) {
-    const sortProjectEl = document.querySelector('#project-sort');
-    sortProjectEl.addEventListener('click', () => {
-      sortByKey(taskList, 'project', currentView, projectSortAscend);
-      tasksDisplay.displayTasks(taskList);
-      projectSortAscend = !projectSortAscend;
-    });
-  }
-
-  function sortStartDate(taskList) {
-    const sortStartDateEl = document.querySelector('#start-date-sort');
-    sortStartDateEl.addEventListener('click', () => {
-      sortByKey(taskList, 'startDate', startDatetSortAscend);
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
-      startDatetSortAscend = !startDatetSortAscend;
-    });
-  }
-
-  function sortDueDate(taskList) {
-    const sortDueDateEl = document.querySelector('#due-date-sort');
-    sortDueDateEl.addEventListener('click', () => {
-      sortByKey(taskList, 'dueDate', dueDatetSortAscend);
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
-      dueDatetSortAscend = !dueDatetSortAscend;
-    });
-  }
-
-  return {
-    sortFocus,
-    sortStatus,
-    sortDescription,
-    sortProject,
-    sortStartDate,
-    sortDueDate,
-  };
-})();
 sortTasks.sortFocus(allTasks);
 sortTasks.sortStatus(allTasks);
 sortTasks.sortDescription(allTasks);
@@ -181,7 +104,7 @@ const toDoApp = (() => {
     // Insert the new task at the beginning of the allTasks list
     allTasks.unshift(newTask);
     localStorage.tasks = JSON.stringify(allTasks);
-    tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
+    tasksDisplay.displayTasks(allTasks);
     // Focus the cursor on the new task's description input field
     document.querySelector('.task-task').focus();
   });

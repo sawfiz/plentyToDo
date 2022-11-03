@@ -59,41 +59,39 @@ const views = (() => {
   return {};
 })();
 
+// Activate the sort buttons
 sortTasks.sortFocus(allTasks);
 sortTasks.sortStatus(allTasks);
 sortTasks.sortDescription(allTasks);
 sortTasks.sortStartDate(allTasks);
 sortTasks.sortDueDate(allTasks);
 
+// Active big add button
 const toDoApp = (() => {
   const bigAddBtn = document.querySelector('.big-add');
-  // const overlayEl = document.querySelector('.overlay');
-  // const addTaskDialog = document.querySelector('#add-task-dialog');
-  const focusInput = document.querySelector('#focus');
-  const completeInput = document.querySelector('#complete');
-  const stateInput = document.querySelector('#state');
-  const descriptionInput = document.querySelector('#description');
-  const groupInput = document.querySelector('#group');
-  const projectInput = document.querySelector('#task-project');
-  const startDateInput = document.querySelector('#start-date');
-  const dueDateInput = document.querySelector('#due-date');
+  // const focusInput = document.querySelector('#focus');
+  // const completeInput = document.querySelector('#complete');
+  // const stateInput = document.querySelector('#state');
+  // const descriptionInput = document.querySelector('#description');
+  // const groupInput = document.querySelector('#group');
+  // const projectInput = document.querySelector('#task-project');
+  // const startDateInput = document.querySelector('#start-date');
+  // const dueDateInput = document.querySelector('#due-date');
 
-  const addTaskSubmitBtn = document.querySelector('#add-task-submit');
-
-  function initInputs() {
-    (focusInput.checked = false),
-      (completeInput.checked = false),
-      (stateInput.selectedIndex = '0'),
-      (descriptionInput.value = ''),
-      (groupInput.value = ''),
-      (projectInput.value = 'Inbox'),
-      (startDateInput.value = getToday()),
-      (dueDateInput.value = getToday());
-  }
+  // function initInputs() {
+  //   (focusInput.checked = false),
+  //     (completeInput.checked = false),
+  //     (stateInput.selectedIndex = '0'),
+  //     (descriptionInput.value = ''),
+  //     (groupInput.value = ''),
+  //     (projectInput.value = 'Inbox'),
+  //     (startDateInput.value = getToday()),
+  //     (dueDateInput.value = getToday());
+  // }
 
   // Allow user to add a new task
   bigAddBtn.addEventListener('click', () => {
-    initInputs();
+    // initInputs();
     // openModal(addTaskDialog);
     const newTask = taskFactory(
       false,
@@ -112,6 +110,10 @@ const toDoApp = (() => {
     document.querySelector('.task-task').focus();
   });
 })();
+
+// const overlayEl = document.querySelector('.overlay');
+// const addTaskDialog = document.querySelector('#add-task-dialog');
+// const addTaskSubmitBtn = document.querySelector('#add-task-submit');
 
 //   // Modal functions
 //   function openModal(modal) {

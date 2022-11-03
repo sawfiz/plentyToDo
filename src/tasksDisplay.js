@@ -1,31 +1,19 @@
+import { getToday, get7Days } from './util';
+
 const tasksDisplay = (() => {
   function displayTasks(taskList, hideCompletedTasks) {
-
-    function getToday() {
-      const date = new Date();
-      let day = date.getDate();
-      let month = date.getMonth() + 1;
-      const year = date.getFullYear();
-    
-      if (month < 10) month = '0' + month;
-      if (day < 10) day = '0' + day;
-    
-      let today = year + '-' + month + '-' + day;
-      return today;
-    }
-
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
     let filteredList = taskList;
-    console.log('1',filteredList);
+    console.log('1', filteredList);
 
     console.log('aa', hideCompletedTasks);
     // First filte out the completed tasks
     if (hideCompletedTasks === true) {
       filteredList = taskList.filter((task) => task.state !== 3);
-      console.log("2", filteredList);
+      console.log('2', filteredList);
     }
-    console.log('3',filteredList);
+    console.log('3', filteredList);
     filteredList.forEach((task) => {
       // Creat a new task element for display
       const taskEl = document.createElement('div');
@@ -82,11 +70,11 @@ const tasksDisplay = (() => {
       const descriptionEl = document.createElement('textarea');
       descriptionEl.classList.add('task-task');
       if (task.startDate < getToday() && task.startDate !== '') {
-        descriptionEl.classList.add('overstart')
+        descriptionEl.classList.add('overstart');
       }
       if (task.dueDate < getToday() && task.dueDate !== '') {
-        descriptionEl.classList.remove('overstart')
-        descriptionEl.classList.add('overdue')
+        descriptionEl.classList.remove('overstart');
+        descriptionEl.classList.add('overdue');
       }
       descriptionEl.value = task.description;
       taskEl.appendChild(descriptionEl);
@@ -112,7 +100,7 @@ const tasksDisplay = (() => {
       startDateEl.setAttribute('type', 'date');
       startDateEl.setAttribute('required', '');
       if (task.startDate < getToday() && task.startDate !== '') {
-        startDateEl.classList.add('overstart')
+        startDateEl.classList.add('overstart');
       }
       startDateEl.value = task.startDate;
       taskEl.appendChild(startDateEl);
@@ -128,7 +116,7 @@ const tasksDisplay = (() => {
       dueDateEl.setAttribute('type', 'date');
       dueDateEl.setAttribute('required', '');
       if (task.dueDate < getToday() && task.dueDate !== '') {
-        dueDateEl.classList.add('overdue')
+        dueDateEl.classList.add('overdue');
       }
       dueDateEl.value = task.dueDate;
       taskEl.appendChild(dueDateEl);

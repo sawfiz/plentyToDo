@@ -36,7 +36,7 @@ const tasksDisplay = (() => {
         break;
       case 'view-Done':
         filteredList = taskList.filter((task) => task.state === 3);
-        hideCompletedTasks = false;
+        // hideCompletedTasks = false;
         break;
       default:
         filteredList = taskList;
@@ -51,10 +51,11 @@ const tasksDisplay = (() => {
     let filteredList = filterTasksOnView(allTasks);
 
     // Filter out completed tasks based on user setting
-    let hideCompletedTasks = JSON.parse(
+    const hideCompletedTasks = JSON.parse(
       localStorage.getItem('hideCompletedTasks')
     );
-    if (hideCompletedTasks === true) {
+    const currentView = localStorage.getItem('currentView');
+    if (hideCompletedTasks === true && currentView !== 'view-Done') {
       filteredList = filteredList.filter((task) => task.state !== 3);
     }
 

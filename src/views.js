@@ -1,12 +1,14 @@
-// Get currentView from localStorage.  Default to 'Today'
-let currentView = localStorage.getItem('currentView');
-if (currentView === null) currentView = 'view-Today';
-let currentViewEl = document.querySelector(`#${currentView}`);
-localStorage.setItem('currentView', currentView);
-currentViewEl.classList.add('active');
+import { tasksDisplay, sortTasks } from './tasksDisplay';
 
 // Active views section in the sidebar
 const views = (() => {
+  // Get currentView from localStorage.  Default to 'Today'
+  let currentView = localStorage.getItem('currentView');
+  if (currentView === null) currentView = 'view-Today';
+  let currentViewEl = document.querySelector(`#${currentView}`);
+  localStorage.setItem('currentView', currentView);
+  currentViewEl.classList.add('active');
+
   const viewsEls = Array.from(document.querySelectorAll('.view'));
 
   viewsEls.forEach((viewEl) => {
@@ -18,9 +20,11 @@ const views = (() => {
       // currentView = viewEl.innerText.trim();
       currentView = viewEl.id;
       localStorage.setItem('currentView', currentView);
-      tasksDisplay.displayTasks(allTasks);
+      tasksDisplay.represhTasksDisplay();
     });
   });
 
   return {};
 })();
+
+export default views;

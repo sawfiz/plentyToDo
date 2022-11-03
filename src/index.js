@@ -3,6 +3,7 @@ import help from './help';
 import { tasksDisplay, sortTasks } from './tasksDisplay';
 import { getToday } from './util';
 import setHideCompletedTasks from './settings'
+import views from './views'
 
 tasksDisplay.represhTasksDisplay();
 // Active help section in the sidebar

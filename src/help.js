@@ -2,7 +2,7 @@ const help = (() => {
     const helpEl = document.querySelector('.help');
     let show = false;
     
-    function toggleHelp() {
+   const toggleHelp=(() =>{
         helpEl.addEventListener('click', () => {
             if (show === false) {
                 showHelp();
@@ -11,7 +11,7 @@ const help = (() => {
                 hideHelp();
             }
         });
-    }
+    })();
     
     function showHelp() {
         const helpContent = document.getElementsByTagName('template')[0];
@@ -29,7 +29,7 @@ const help = (() => {
         show = false;
     }
 
-    return {toggleHelp}
+    // return {toggleHelp}
 })();
 
 export default help;

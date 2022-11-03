@@ -1,16 +1,16 @@
 import { getToday, get7Days } from './util';
 
 const tasksDisplay = (() => {
-  function displayTasks(taskList) {
-    // Get currentView and hideCompletedTasks from localStorage
-    const view = localStorage.getItem('currentView');
-    let hideCompletedTasks = JSON.parse(localStorage.getItem('hideCompletedTasks'));
-    
-    const listEl = document.querySelector('.tasks');
-    listEl.innerHTML = '';
+  // Get allTasks from local storage
+  let allTasks = JSON.parse(localStorage.getItem('tasks'));
+  if (allTasks === null) allTasks = [];
+
+  // Function to filter tasks list based on currently selected view
+  function filterTasksOnView(taskList) {
+    const currentView = localStorage.getItem('currentView');
     let filteredList;
 
-    switch (view) {
+    switch (currentView) {
       case 'view-Today':
         filteredList = taskList.filter(
           (task) =>
@@ -27,7 +27,6 @@ const tasksDisplay = (() => {
         );
         break;
       case 'view-All':
-        // hideCompletedTasks = false;
         filteredList = taskList;
         break;
       case 'view-No-Date':
@@ -38,24 +37,32 @@ const tasksDisplay = (() => {
       case 'view-Done':
         filteredList = taskList.filter((task) => task.state === 3);
         hideCompletedTasks = false;
-
-        // console.log('a', filteredList);
         break;
-
       default:
-        // filteredList = taskList;
+        filteredList = taskList;
         break;
     }
+    return filteredList;
+  }
 
-    // Hide completed tasks based on setting
-    console.log(hideCompletedTasks);
-    console.log(filteredList);
-    
+  // Function to refresh the tasks list dispalay
+  function represhTasksDisplay() {
+    // Filter tasks list based on currentView
+    let filteredList = filterTasksOnView(allTasks);
+
+    // Filter out completed tasks based on user setting
+    let hideCompletedTasks = JSON.parse(
+      localStorage.getItem('hideCompletedTasks')
+    );
     if (hideCompletedTasks === true) {
       filteredList = filteredList.filter((task) => task.state !== 3);
     }
-    console.log('List to print', filteredList);
 
+    // Initialize tasks list display
+    const listEl = document.querySelector('.tasks');
+    listEl.innerHTML = '';
+
+    // Add filtered list of tasks onto the webpage
     filteredList.forEach((task) => {
       // Creat a new task element for display
       const taskEl = document.createElement('div');
@@ -71,7 +78,6 @@ const tasksDisplay = (() => {
         task.focus = !task.focus;
         focusEl.innerText = task.focus === true ? '🔆' : '🫥';
         localStorage.tasks = JSON.stringify(taskList);
-        location.reload();
       });
 
       // Create the task status element, make it a drop down list
@@ -107,7 +113,6 @@ const tasksDisplay = (() => {
         if (hideCompletedTasks === true && task.state === 3) {
           listEl.removeChild(taskEl);
         }
-        location.reload();
       });
 
       // Create the task description input element
@@ -192,7 +197,7 @@ const tasksDisplay = (() => {
       listEl.appendChild(taskEl);
     });
   }
-  return { displayTasks };
+  return { allTasks, represhTasksDisplay };
 })();
 
 // Functions to sort the tasks
@@ -213,68 +218,56 @@ const sortTasks = (() => {
     });
   }
 
-  function sortFocus(taskList) {
+  function sortFocus() {
     const sortFoucsEl = document.querySelector('#focus-sort');
     sortFoucsEl.addEventListener('click', () => {
-      sortByKey(taskList, 'focus', focusSortAscend);
-      const currentView = localStorage.getItem('currentView');
-      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      sortByKey(tasksDisplay.allTasks, 'focus', focusSortAscend);
+      tasksDisplay.represhTasksDisplay();
       focusSortAscend = !focusSortAscend;
     });
   }
 
-  function sortStatus(taskList) {
+  function sortStatus() {
     const sortStatusEl = document.querySelector('#status-sort');
     sortStatusEl.addEventListener('click', () => {
-      sortByKey(taskList, 'state', statusSortAscend);
-      const currentView = localStorage.getItem('currentView');
-      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      sortByKey(tasksDisplay.allTasks, 'state', statusSortAscend);
+      tasksDisplay.represhTasksDisplay();
       statusSortAscend = !statusSortAscend;
     });
   }
 
-  function sortDescription(taskList) {
+  function sortDescription() {
     const sortDescriptionEl = document.querySelector('#description-sort');
     sortDescriptionEl.addEventListener('click', () => {
-      sortByKey(taskList, 'description', descriptionSortAscend);
-      const currentView = localStorage.getItem('currentView');
-      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      sortByKey(tasksDisplay.allTasks, 'description', descriptionSortAscend);
+      tasksDisplay.represhTasksDisplay();
       descriptionSortAscend = !descriptionSortAscend;
     });
   }
 
-  function sortProject(taskList) {
+  function sortProject() {
     const sortProjectEl = document.querySelector('#project-sort');
     sortProjectEl.addEventListener('click', () => {
-      sortByKey(taskList, 'project', currentView, projectSortAscend);
-      const currentView = localStorage.getItem('currentView');
-      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      sortByKey(tasksDisplay.allTasks, 'project', currentView, projectSortAscend);
+      tasksDisplay.represhTasksDisplay();
       projectSortAscend = !projectSortAscend;
     });
   }
 
-  function sortStartDate(taskList) {
+  function sortStartDate() {
     const sortStartDateEl = document.querySelector('#start-date-sort');
     sortStartDateEl.addEventListener('click', () => {
-      sortByKey(taskList, 'startDate', startDatetSortAscend);
-      const currentView = localStorage.getItem('currentView');
-      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      sortByKey(tasksDisplay.allTasks, 'startDate', startDatetSortAscend);
+      tasksDisplay.represhTasksDisplay();
       startDatetSortAscend = !startDatetSortAscend;
     });
   }
 
-  function sortDueDate(taskList) {
+  function sortDueDate() {
     const sortDueDateEl = document.querySelector('#due-date-sort');
     sortDueDateEl.addEventListener('click', () => {
-      sortByKey(taskList, 'dueDate', dueDatetSortAscend);
-      const currentView = localStorage.getItem('currentView');
-      const hideCompletedTasks = localStorage.getItem('hideCompletedTasks');
-      tasksDisplay.displayTasks(taskList, currentView, hideCompletedTasks);
+      sortByKey(tasksDisplay.allTasks, 'dueDate', dueDatetSortAscend);
+      tasksDisplay.represhTasksDisplay();
       dueDatetSortAscend = !dueDatetSortAscend;
     });
   }

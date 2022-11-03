@@ -22,7 +22,6 @@ function get7Days() {
   if (day < 10) day = '0' + day;
 
   let sevenDays = year + '-' + month + '-' + day;
-  console.log(sevenDays);
   return sevenDays;
 }
 

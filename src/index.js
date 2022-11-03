@@ -6,6 +6,7 @@ import { getToday, get7Days } from './util';
 // import views from './views';
 
 let hideCompletedTasks = false;
+let currentView = 'Today'
 
 const setHideCompletedTasks = (() => {
   const hideCompletedEl = document.querySelector('#hide-completed');
@@ -13,7 +14,7 @@ const setHideCompletedTasks = (() => {
   console.log('MM', hideCompletedTasks);
   hideCompletedEl.addEventListener('change', () => {
     hideCompletedTasks = hideCompletedEl.checked;
-    tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
+    tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
   });
   // return { hide };
 })();
@@ -22,7 +23,7 @@ const setHideCompletedTasks = (() => {
 let allTasks = JSON.parse(localStorage.getItem('tasks'));
 if (allTasks === null) allTasks = [];
 console.log(allTasks);
-tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
+tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
 
 // Active help section in the sidebar
 help.toggleHelp();
@@ -37,43 +38,8 @@ const views = (() => {
         El.classList.remove('active');
       });
       viewEl.classList.add('active');
-      switch (viewEl.innerText) {
-        case ' Today':
-          const todayList = allTasks.filter(
-            (task) =>
-              (task.startDate <= getToday() || task.dueDate <= getToday()) &&
-              task.startDate !== '' &&
-              task.dueDate !== ''
-          );
-          tasksDisplay.displayTasks(todayList, hideCompletedTasks);
-          break;
-        case ' Next 7 Days':
-          console.log(viewEl.innerText);
-          const next7List = allTasks.filter(
-            (task) =>
-              (task.startDate > getToday() && task.startDate <= get7Days()) ||
-              (task.dueDate > getToday() && task.dueDate <= get7Days())
-          );
-          tasksDisplay.displayTasks(next7List, hideCompletedTasks);
-          break;
-        case ' All':
-          tasksDisplay.displayTasks(allTasks, false);
-          break;
-        case ' No Date':
-          console.log(viewEl.innerText);
-          const noDateList = allTasks.filter(
-            (task) => task.startDate === '' && task.dueDate === ''
-          );
-          tasksDisplay.displayTasks(noDateList, hideCompletedTasks);
-          break;
-        case ' Done':
-          const doneList = allTasks.filter((task) => task.state === 3);
-          tasksDisplay.displayTasks(doneList, false);
-          break;
-
-        default:
-          break;
-      }
+      currentView = viewEl.innerText.trim();
+      tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks)
     });
   });
 
@@ -210,7 +176,7 @@ const toDoApp = (() => {
     // Insert the new task at the beginning of the allTasks list
     allTasks.unshift(newTask);
     localStorage.tasks = JSON.stringify(allTasks);
-    tasksDisplay.displayTasks(allTasks, hideCompletedTasks);
+    tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
     // Focus the cursor on the new task's description input field
     document.querySelector('.task-task').focus();
   });

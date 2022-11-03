@@ -1,19 +1,55 @@
 import { getToday, get7Days } from './util';
 
 const tasksDisplay = (() => {
-  function displayTasks(taskList, hideCompletedTasks) {
+  function displayTasks(taskList, view, hideCompletedTasks) {
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
-    let filteredList = taskList;
-    console.log('1', filteredList);
+    let filteredList;
+    console.log(view);
 
-    console.log('aa', hideCompletedTasks);
-    // First filte out the completed tasks
-    if (hideCompletedTasks === true) {
-      filteredList = taskList.filter((task) => task.state !== 3);
-      console.log('2', filteredList);
+    switch (view) {
+      case 'Today':
+        filteredList = taskList.filter(
+          (task) =>
+            (task.startDate <= getToday() || task.dueDate <= getToday()) &&
+            task.startDate !== '' &&
+            task.dueDate !== ''
+        );
+        break;
+      case 'Next 7 Days':
+        filteredList = taskList.filter(
+          (task) =>
+            (task.startDate > getToday() && task.startDate <= get7Days()) ||
+            (task.dueDate > getToday() && task.dueDate <= get7Days())
+        );
+        break;
+      case 'All':
+        // hideCompletedTasks = false;
+        filteredList = taskList;
+        break;
+      case 'No Date':
+        filteredList = taskList.filter(
+          (task) => task.startDate === '' && task.dueDate === ''
+        );
+        break;
+      case 'Done':
+        filteredList = taskList.filter((task) => task.state === 3);
+        hideCompletedTasks = false;
+
+        // console.log('a', filteredList);
+        break;
+
+      default:
+        // filteredList = taskList;
+        break;
     }
-    console.log('3', filteredList);
+
+    // Hide completed tasks based on setting
+    if (hideCompletedTasks === true) {
+      filteredList = filteredList.filter((task) => task.state !== 3);
+    }
+    console.log('List to print', filteredList);
+
     filteredList.forEach((task) => {
       // Creat a new task element for display
       const taskEl = document.createElement('div');

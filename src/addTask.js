@@ -3,7 +3,7 @@ import { tasksDisplay } from './tasksDisplay';
 import { getToday } from './util';
 
 // Active big add button
-const addTask = (() => {
+const addNewTask = (() => {
   const bigAddBtn = document.querySelector('.big-add');
 
   // Allow user to add a new task
@@ -27,4 +27,4 @@ const addTask = (() => {
   });
 })();
 
-export default addTask;
+export default addNewTask;

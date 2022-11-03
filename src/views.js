@@ -1,7 +1,7 @@
 import { tasksDisplay } from './tasksDisplay';
 
 // Active views section in the sidebar
-const views = (() => {
+const getCurrentview = (() => {
   // Get currentView from localStorage.  Default to 'Today'
   let currentView = localStorage.getItem('currentView');
   if (currentView === null) currentView = 'view-Today';
@@ -27,4 +27,4 @@ const views = (() => {
   return {};
 })();
 
-export default views;
+export default getCurrentview;

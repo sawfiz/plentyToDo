@@ -1,10 +1,10 @@
 import taskFactory from './task';
-import help from './help';
-import { tasksDisplay } from './tasksDisplay';
+import helpPanel from './help';
+import { tasksDisplay, sortTasks } from './tasksDisplay';
 import { getToday } from './util';
 import setHideCompletedTasks from './settings';
-import views from './views';
-import addTask from './addTask';
+import getCurrentView from './views';
+import addNewTask from './addTask';
 
 // Show tasks list
 tasksDisplay.represhTasksDisplay();

@@ -1,4 +1,4 @@
-const help = (() => {
+const helpPanel = (() => {
     const helpEl = document.querySelector('.help');
     let show = false;
     
@@ -29,7 +29,6 @@ const help = (() => {
         show = false;
     }
 
-    // return {toggleHelp}
 })();
 
-export default help;
+export default helpPanel;

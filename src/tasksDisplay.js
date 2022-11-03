@@ -219,68 +219,59 @@ const sortTasks = (() => {
     });
   }
 
-  function sortFocus() {
+  const sortFocus = (() => {
     const sortFoucsEl = document.querySelector('#focus-sort');
     sortFoucsEl.addEventListener('click', () => {
       sortByKey(tasksDisplay.allTasks, 'focus', focusSortAscend);
       tasksDisplay.represhTasksDisplay();
       focusSortAscend = !focusSortAscend;
     });
-  }
+  })();
 
-  function sortStatus() {
+  const sortStatus = (() => {
     const sortStatusEl = document.querySelector('#status-sort');
     sortStatusEl.addEventListener('click', () => {
       sortByKey(tasksDisplay.allTasks, 'state', statusSortAscend);
       tasksDisplay.represhTasksDisplay();
       statusSortAscend = !statusSortAscend;
     });
-  }
+  })();
 
-  function sortDescription() {
+  const sortDescription = (() => {
     const sortDescriptionEl = document.querySelector('#description-sort');
     sortDescriptionEl.addEventListener('click', () => {
       sortByKey(tasksDisplay.allTasks, 'description', descriptionSortAscend);
       tasksDisplay.represhTasksDisplay();
       descriptionSortAscend = !descriptionSortAscend;
     });
-  }
+  })();
 
-  function sortProject() {
+  const sortProject = (() => {
     const sortProjectEl = document.querySelector('#project-sort');
     sortProjectEl.addEventListener('click', () => {
-      sortByKey(tasksDisplay.allTasks, 'project', currentView, projectSortAscend);
+      sortByKey(tasksDisplay.allTasks, 'project', projectSortAscend);
       tasksDisplay.represhTasksDisplay();
       projectSortAscend = !projectSortAscend;
     });
-  }
+  })();
 
-  function sortStartDate() {
+  const sortStartDate = (() => {
     const sortStartDateEl = document.querySelector('#start-date-sort');
     sortStartDateEl.addEventListener('click', () => {
       sortByKey(tasksDisplay.allTasks, 'startDate', startDatetSortAscend);
       tasksDisplay.represhTasksDisplay();
       startDatetSortAscend = !startDatetSortAscend;
     });
-  }
+  })();
 
-  function sortDueDate() {
+  const sortDueDate = (() => {
     const sortDueDateEl = document.querySelector('#due-date-sort');
     sortDueDateEl.addEventListener('click', () => {
       sortByKey(tasksDisplay.allTasks, 'dueDate', dueDatetSortAscend);
       tasksDisplay.represhTasksDisplay();
       dueDatetSortAscend = !dueDatetSortAscend;
     });
-  }
-
-  return {
-    sortFocus,
-    sortStatus,
-    sortDescription,
-    sortProject,
-    sortStartDate,
-    sortDueDate,
-  };
+  })();
 })();
 
 export { tasksDisplay, sortTasks };

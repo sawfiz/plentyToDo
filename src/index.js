@@ -9,13 +9,6 @@ tasksDisplay.represhTasksDisplay();
 // Active help section in the sidebar
 help.toggleHelp();
 
-// Activate the sort buttons
-sortTasks.sortFocus();
-sortTasks.sortStatus();
-sortTasks.sortDescription();
-sortTasks.sortStartDate();
-sortTasks.sortDueDate();
-
 // Active big add button
 const toDoApp = (() => {
   const bigAddBtn = document.querySelector('.big-add');

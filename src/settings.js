@@ -5,7 +5,6 @@ const setHideCompletedTasks = (() => {
   let hideCompletedTasks = JSON.parse(
     localStorage.getItem('hideCompletedTasks')
   );
-  console.log(hideCompletedTasks);
 
   if (hideCompletedTasks === null) {
     hideCompletedTasks = hideCompletedEl.checked;

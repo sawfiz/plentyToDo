@@ -81,7 +81,11 @@ const tasksDisplay = (() => {
       // Create the task description input element
       const descriptionEl = document.createElement('textarea');
       descriptionEl.classList.add('task-task');
+      if (task.startDate < getToday() && task.startDate !== '') {
+        descriptionEl.classList.add('overstart')
+      }
       if (task.dueDate < getToday() && task.dueDate !== '') {
+        descriptionEl.classList.remove('overstart')
         descriptionEl.classList.add('overdue')
       }
       descriptionEl.value = task.description;
@@ -107,6 +111,9 @@ const tasksDisplay = (() => {
       startDateEl.classList.add('task-item');
       startDateEl.setAttribute('type', 'date');
       startDateEl.setAttribute('required', '');
+      if (task.startDate < getToday() && task.startDate !== '') {
+        startDateEl.classList.add('overstart')
+      }
       startDateEl.value = task.startDate;
       taskEl.appendChild(startDateEl);
       // Allow user the change the start date

@@ -1,5 +1,19 @@
 const tasksDisplay = (() => {
   function displayTasks(taskList, hideCompletedTasks) {
+
+    function getToday() {
+      const date = new Date();
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      const year = date.getFullYear();
+    
+      if (month < 10) month = '0' + month;
+      if (day < 10) day = '0' + day;
+    
+      let today = year + '-' + month + '-' + day;
+      return today;
+    }
+
     const listEl = document.querySelector('.tasks');
     listEl.innerHTML = '';
     let filteredList = taskList;
@@ -67,6 +81,9 @@ const tasksDisplay = (() => {
       // Create the task description input element
       const descriptionEl = document.createElement('textarea');
       descriptionEl.classList.add('task-task');
+      if (task.dueDate < getToday() && task.dueDate !== '') {
+        descriptionEl.classList.add('overdue')
+      }
       descriptionEl.value = task.description;
       taskEl.appendChild(descriptionEl);
       // Allow user to change task description
@@ -103,6 +120,9 @@ const tasksDisplay = (() => {
       dueDateEl.classList.add('task-item');
       dueDateEl.setAttribute('type', 'date');
       dueDateEl.setAttribute('required', '');
+      if (task.dueDate < getToday() && task.dueDate !== '') {
+        dueDateEl.classList.add('overdue')
+      }
       dueDateEl.value = task.dueDate;
       taskEl.appendChild(dueDateEl);
       // Allow user to change the due date

@@ -2,16 +2,19 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 :root {
-  /* --darker-color: #534340;
-  --dark-color: #bb9981;
-  --light-color: #c5d8a4;
-  --lighter-color: #f4fcd9; */
-  /* --darker-color: #078282; */
+  /* Victor Verion */
   --darker-color: #da7f8f;
   --dark-color: #a7bbc7;
   --light-color: #e1e5ea;
   --lighter-color: #faf3f3;
-  --shade: #fff3;
+
+  /* Xinfie version */
+  /* --darker-color: #f87474;
+  --dark-color: #FFB3B3;
+  --light-color: #ffb562;
+  --lighter-color: #F9F2ED; */
+
+  --shade: #ffffff;
   --h2: 1.1rem;
   --h3: 1.05rem;
   --p: 1rem;
@@ -263,8 +266,12 @@ ul {
   height: 24px;
 }
 
+.overdue {
+  color: red;
+}
+
 /* If a date field is required and it is invalid (empty), it is shown as transparent */
-input[type=date]:required:invalid::-webkit-datetime-edit {
+input[type='date']:required:invalid::-webkit-datetime-edit {
   color: transparent;
 }
 

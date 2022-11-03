@@ -73,7 +73,7 @@ const views = (() => {
           );
           tasksDisplay.displayTasks(todayList, hideCompletedTasks);
           break;
-        case ' Next 7 days':
+        case ' Next 7 Days':
           console.log(viewEl.innerText);
           const next7List = allTasks.filter(
             (task) =>

@@ -16,7 +16,7 @@ const tasksDisplay = (() => {
             task.dueDate !== ''
         );
         break;
-      case 'Next 7 Days':
+      case 'Next-7-Days':
         filteredList = taskList.filter(
           (task) =>
             (task.startDate > getToday() && task.startDate <= get7Days()) ||
@@ -27,7 +27,7 @@ const tasksDisplay = (() => {
         // hideCompletedTasks = false;
         filteredList = taskList;
         break;
-      case 'No Date':
+      case 'No-Date':
         filteredList = taskList.filter(
           (task) => task.startDate === '' && task.dueDate === ''
         );
@@ -65,6 +65,7 @@ const tasksDisplay = (() => {
         task.focus = !task.focus;
         focusEl.innerText = task.focus === true ? '🔆' : '🫥';
         localStorage.tasks = JSON.stringify(taskList);
+        location.reload();
       });
 
       // Create the task status element, make it a drop down list
@@ -100,6 +101,7 @@ const tasksDisplay = (() => {
         if (hideCompletedTasks === true && task.state === 3) {
           listEl.removeChild(taskEl);
         }
+        location.reload();
       });
 
       // Create the task description input element
@@ -144,6 +146,7 @@ const tasksDisplay = (() => {
       startDateEl.addEventListener('change', () => {
         task.startDate = startDateEl.value;
         localStorage.tasks = JSON.stringify(taskList);
+        location.reload();
       });
 
       // Create the task due date element
@@ -160,6 +163,7 @@ const tasksDisplay = (() => {
       dueDateEl.addEventListener('change', () => {
         task.dueDate = dueDateEl.value;
         localStorage.tasks = JSON.stringify(taskList);
+        location.reload();
       });
 
       // TO DO

@@ -6,7 +6,10 @@ import { getToday, get7Days } from './util';
 // import views from './views';
 
 let hideCompletedTasks = false;
-let currentView = 'Today'
+let currentView = localStorage.getItem('currentView');
+if (currentView === null) currentView = 'Today';
+let currentViewEl = document.querySelector(`#${currentView}`);
+currentViewEl.classList.add('active');
 
 const setHideCompletedTasks = (() => {
   const hideCompletedEl = document.querySelector('#hide-completed');
@@ -38,8 +41,10 @@ const views = (() => {
         El.classList.remove('active');
       });
       viewEl.classList.add('active');
-      currentView = viewEl.innerText.trim();
-      tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks)
+      // currentView = viewEl.innerText.trim();
+      currentView = viewEl.id;
+      localStorage.setItem('currentView', currentView);
+      tasksDisplay.displayTasks(allTasks, currentView, hideCompletedTasks);
     });
   });
 

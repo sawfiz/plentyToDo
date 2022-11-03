@@ -2,6 +2,7 @@ import taskFactory from './task';
 import help from './help';
 import { tasksDisplay, sortTasks } from './tasksDisplay';
 import { getToday } from './util';
+import setHideCompletedTasks from './settings'
 
 tasksDisplay.represhTasksDisplay();
 // Active help section in the sidebar

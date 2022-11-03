@@ -11,7 +11,7 @@ const tasksDisplay = (() => {
     let filteredList;
 
     switch (view) {
-      case 'Today':
+      case 'view-Today':
         filteredList = taskList.filter(
           (task) =>
             (task.startDate <= getToday() || task.dueDate <= getToday()) &&
@@ -19,23 +19,23 @@ const tasksDisplay = (() => {
             task.dueDate !== ''
         );
         break;
-      case 'Next-7-Days':
+      case 'view-Next-7-Days':
         filteredList = taskList.filter(
           (task) =>
             (task.startDate > getToday() && task.startDate <= get7Days()) ||
             (task.dueDate > getToday() && task.dueDate <= get7Days())
         );
         break;
-      case 'All':
+      case 'view-All':
         // hideCompletedTasks = false;
         filteredList = taskList;
         break;
-      case 'No-Date':
+      case 'view-No-Date':
         filteredList = taskList.filter(
           (task) => task.startDate === '' && task.dueDate === ''
         );
         break;
-      case 'Done':
+      case 'view-Done':
         filteredList = taskList.filter((task) => task.state === 3);
         hideCompletedTasks = false;
 
@@ -49,6 +49,8 @@ const tasksDisplay = (() => {
 
     // Hide completed tasks based on setting
     console.log(hideCompletedTasks);
+    console.log(filteredList);
+    
     if (hideCompletedTasks === true) {
       filteredList = filteredList.filter((task) => task.state !== 3);
     }

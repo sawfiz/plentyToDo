@@ -5,16 +5,19 @@ import { getToday } from './util';
 
 // Get currentView from localStorage.  Default to 'Today'
 let currentView = localStorage.getItem('currentView');
-if (currentView === null) currentView = 'Today';
+if (currentView === null) currentView = 'view-Today';
 let currentViewEl = document.querySelector(`#${currentView}`);
+localStorage.setItem('currentView', currentView);
 currentViewEl.classList.add('active');
 
 // Get hideCompletedTasks
 const setHideCompletedTasks = (() => {
   const hideCompletedEl = document.querySelector('#hide-completed');
-  let hideCompletedTasks = JSON.parse(localStorage.getItem('hideCompletedTasks'));
+  let hideCompletedTasks = JSON.parse(
+    localStorage.getItem('hideCompletedTasks')
+  );
   console.log(hideCompletedTasks);
-  
+
   if (hideCompletedTasks === null) {
     hideCompletedTasks = hideCompletedEl.checked;
     localStorage.setItem('hideCompletedTasks', hideCompletedTasks);

@@ -78,7 +78,7 @@ const tasksDisplay = (() => {
       focusEl.addEventListener('click', () => {
         task.focus = !task.focus;
         focusEl.innerText = task.focus === true ? '🔆' : '🫥';
-        localStorage.tasks = JSON.stringify(taskList);
+        localStorage.tasks = JSON.stringify(allTasks);
       });
 
       // Create the task status element, make it a drop down list
@@ -110,7 +110,7 @@ const tasksDisplay = (() => {
       // Allow user to change task staus
       stateEl.addEventListener('change', () => {
         task.state = stateEl.selectedIndex;
-        localStorage.tasks = JSON.stringify(taskList);
+        localStorage.tasks = JSON.stringify(allTasks);
         if (hideCompletedTasks === true && task.state === 3) {
           listEl.removeChild(taskEl);
         }
@@ -135,7 +135,7 @@ const tasksDisplay = (() => {
       });
       descriptionEl.addEventListener('change', () => {
         task.description = descriptionEl.value;
-        localStorage.tasks = JSON.stringify(taskList);
+        localStorage.tasks = JSON.stringify(allTasks);
       });
 
       // TO DO
@@ -157,7 +157,7 @@ const tasksDisplay = (() => {
       // Allow user the change the start date
       startDateEl.addEventListener('change', () => {
         task.startDate = startDateEl.value;
-        localStorage.tasks = JSON.stringify(taskList);
+        localStorage.tasks = JSON.stringify(allTasks);
         location.reload();
       });
 
@@ -174,7 +174,7 @@ const tasksDisplay = (() => {
       // Allow user to change the due date
       dueDateEl.addEventListener('change', () => {
         task.dueDate = dueDateEl.value;
-        localStorage.tasks = JSON.stringify(taskList);
+        localStorage.tasks = JSON.stringify(allTasks);
         location.reload();
       });
 
@@ -189,9 +189,9 @@ const tasksDisplay = (() => {
       taskEl.appendChild(deleteEl);
       // Allow user to delete a task
       deleteEl.addEventListener('click', () => {
-        taskList.splice(taskList.indexOf(task), 1);
+        allTasks.splice(allTasks.indexOf(task), 1);
         listEl.removeChild(taskEl);
-        localStorage.tasks = JSON.stringify(taskList);
+        localStorage.tasks = JSON.stringify(allTasks);
       });
 
       // Add the task to display

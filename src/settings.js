@@ -1,4 +1,4 @@
-import { tasksDisplay, sortTasks } from './tasksDisplay';
+import { tasksDisplay } from './tasksDisplay';
 
 const setHideCompletedTasks = (() => {
   const hideCompletedEl = document.querySelector('#hide-completed');

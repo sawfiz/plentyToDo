@@ -1,6 +1,6 @@
 import taskFactory from './task';
-import { tasksDisplay, sortTasks } from './tasksDisplay';
-import { getToday, get7Days } from './util';
+import { tasksDisplay } from './tasksDisplay';
+import { getToday } from './util';
 
 // Active big add button
 const addTask = (() => {

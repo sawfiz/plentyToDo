@@ -1,4 +1,4 @@
-import { tasksDisplay, sortTasks } from './tasksDisplay';
+import { tasksDisplay } from './tasksDisplay';
 
 // Active views section in the sidebar
 const views = (() => {

@@ -278,6 +278,10 @@ ul {
 input[type='date']:required:invalid::-webkit-datetime-edit {
   color: transparent;
 }
+/* When focused on, the color is black */
+input[type=date]:focus::-webkit-datetime-edit {
+  color: black !important;
+}
 
 /* .task-task textarea::-webkit-scrollbar {
   width: 0px;

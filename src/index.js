@@ -24,7 +24,7 @@ function updateTasksDisplay(list) {
     focusEl.addEventListener('click', () => {
       task.focus = !task.focus;
       focusEl.innerText = task.focus === true ? '🔆' : '🫥';
-      localStorage.tasks = JSON.stringify(allTasks);
+      tasksList.updateTask(task.number, 'focus', task.focus);
     });
 
     // Create the task status element, make it a drop down list
@@ -55,9 +55,11 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(stateEl);
     // Allow user to change task staus
     stateEl.addEventListener('change', () => {
-      task.state = stateEl.selectedIndex;
-      localStorage.tasks = JSON.stringify(allTasks);
-      if (hideCompletedTasks === true && task.state === 3) {
+      tasksList.updateTask(task.number, 'state', stateEl.selectedIndex);
+      if (tasksList.hideCompletedTasks === true && task.state === 3) {
+        listEl.removeChild(taskEl);
+      }
+      if (tasksList.currentView = 'view-Done' && task.state !== 3) {
         listEl.removeChild(taskEl);
       }
     });
@@ -80,9 +82,7 @@ function updateTasksDisplay(list) {
       descriptionEl.style.height = `${scHeight}px`;
     });
     descriptionEl.addEventListener('change', () => {
-        tasksList.updateDescription(list.indexOf(task), descriptionEl.value)
-    //   task.description = descriptionEl.value;
-    //   localStorage.tasks = JSON.stringify(allTasks);
+      tasksList.updateTask(task.number, 'description', descriptionEl.value);
     });
 
     // TO DO
@@ -103,11 +103,11 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(startDateEl);
     // Allow user the change the start date
     startDateEl.addEventListener('change', () => {
-      tasksList.updateStartDate(list.indexOf(task), startDateEl.value);
+      tasksList.updateTask(task.number, 'startDate', startDateEl.value);
       if (task.startDate < getToday() && task.startDate !== '') {
         startDateEl.classList.add('overstart');
       } else {
-        startDateEl.classList.remove('overstart')
+        startDateEl.classList.remove('overstart');
       }
     });
 
@@ -123,11 +123,11 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(dueDateEl);
     // Allow user to change the due date
     dueDateEl.addEventListener('change', () => {
-      tasksList.updateDueDate(list.indexOf(task), dueDateEl.value);
+      tasksList.updateTask(task.number, 'dueDate', dueDateEl.value);
       if (task.dueDate < getToday() && task.dueDate !== '') {
         dueDateEl.classList.add('overdue');
       } else {
-        dueDateEl.classList.remove('overdue')
+        dueDateEl.classList.remove('overdue');
       }
     });
 
@@ -142,7 +142,7 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(deleteEl);
     // Allow user to delete a task
     deleteEl.addEventListener('click', () => {
-      tasksList.deleteTask(task);
+      tasksList.updateTask(task.number, 'delete');
       listEl.removeChild(taskEl);
     });
 

@@ -2,8 +2,12 @@ import taskFactory from './task';
 import { getToday, get7Days } from './util';
 
 const tasksList = (() => {
-  // Get stored variables from localStorage
-  let allTasks = JSON.parse(localStorage.getItem('tasks'));
+  // Get stored index from localStorage
+  let number = JSON.parse(localStorage.getItem('number'));
+  if (number === null) number = 0;
+
+  // Get stored tasks from localStorage
+  let allTasks = JSON.parse(localStorage.getItem('allTasks'));
   if (allTasks === null) allTasks = [];
 
   // Get currentView from localStorage.  Default to 'Today'
@@ -28,6 +32,7 @@ const tasksList = (() => {
 
   function createTask() {
     const newTask = taskFactory(
+      number,
       false,
       '0',
       '',
@@ -38,32 +43,52 @@ const tasksList = (() => {
     );
     // Insert the new task at the beginning of the allTasks list
     allTasks.unshift(newTask);
-    localStorage.tasks = JSON.stringify(allTasks);
+    localStorage.allTasks = JSON.stringify(allTasks);
+    number++;
+    localStorage.setItem('number', number);
   }
 
-  function updateDescription(index, description) {
-    allTasks[index].description = description;
-    localStorage.tasks = JSON.stringify(allTasks);
+  function updateTask(number, attr, value) {
+      const task = allTasks.find(element => element.number === number);
+      switch (attr) {
+        case 'focus':
+            task.focus = value; 
+            break;
+        case 'state':
+            task.state = value; 
+            break;
+        case 'description':
+            task.description = value; 
+            break;
+        case 'startDate':
+            task.startDate = value; 
+            break;
+        case 'dueDate':
+            task.dueDate = value; 
+            break;
+        case 'delete':
+            allTasks.splice(allTasks.indexOf(task), 1);
+            break;
+      
+        default:
+            break;
+      }
+      localStorage.allTasks = JSON.stringify(allTasks);
   }
 
   function updateStartDate(index, startDate) {
     allTasks[index].startDate = startDate;
-    localStorage.tasks = JSON.stringify(allTasks);
+    localStorage.allTasks = JSON.stringify(allTasks);
   }
 
   function updateDueDate(index, dueDate) {
     allTasks[index].dueDate = dueDate;
-    localStorage.tasks = JSON.stringify(allTasks);
-  }
-
-
-  function deleteTask(task) {
-    allTasks.splice(allTasks.indexOf(task), 1);
-    localStorage.tasks = JSON.stringify(allTasks);
+    localStorage.allTasks = JSON.stringify(allTasks);
   }
 
   // Function to filter tasks list based on currently selected view
   function getFilteredList() {
+    // Get stored variables from localStorage
     let filteredList;
     let hide = hideCompletedTasks;
 
@@ -103,17 +128,15 @@ const tasksList = (() => {
     if (hide === true) {
       filteredList = filteredList.filter((task) => task.state !== 3);
     }
-
+    console.log(filteredList);
     return filteredList;
   }
 
   return {
+    hideCompletedTasks,
     currentView,
     createTask,
-    updateDescription,
-    updateStartDate,
-    updateDueDate,
-    deleteTask,
+    updateTask,
     getFilteredList,
     setHideCompletedTasks,
     setCurrentView,

@@ -6,17 +6,21 @@ const tasksDisplay = (() => {
   if (allTasks === null) allTasks = [];
 
   // Function to filter tasks list based on currently selected view
-  function filterTasksOnView(taskList) {
+  function filterTasks(taskList) {
     const currentView = localStorage.getItem('currentView');
+    const hideCompletedTasks = JSON.parse(
+      localStorage.getItem('hideCompletedTasks')
+    );
+
     let filteredList;
 
     switch (currentView) {
       case 'view-Today':
         filteredList = taskList.filter(
           (task) =>
-            (task.startDate <= getToday() || task.dueDate <= getToday()) &&
-            task.startDate !== '' &&
-            task.dueDate !== ''
+            (task.startDate <= getToday() &&
+            task.startDate !== '') || (task.dueDate <= getToday() &&
+            task.dueDate !== '')
         );
         break;
       case 'view-Next-7-Days':
@@ -36,28 +40,25 @@ const tasksDisplay = (() => {
         break;
       case 'view-Done':
         filteredList = taskList.filter((task) => task.state === 3);
-        // hideCompletedTasks = false;
+        hideCompletedTasks = false;
         break;
       default:
         filteredList = taskList;
         break;
     }
+
+    // Filter out completed tasks based on user setting
+    if (hideCompletedTasks === true) {
+      filteredList = filteredList.filter((task) => task.state !== 3);
+    }
+
     return filteredList;
   }
 
   // Function to refresh the tasks list dispalay
   function represhTasksDisplay() {
-    // Filter tasks list based on currentView
-    let filteredList = filterTasksOnView(allTasks);
-
-    // Filter out completed tasks based on user setting
-    const hideCompletedTasks = JSON.parse(
-      localStorage.getItem('hideCompletedTasks')
-    );
-    const currentView = localStorage.getItem('currentView');
-    if (hideCompletedTasks === true && currentView !== 'view-Done') {
-      filteredList = filteredList.filter((task) => task.state !== 3);
-    }
+    // Filter tasks list based on currentView and hideCompletedTasks
+    let filteredList = filterTasks(allTasks);
 
     // Initialize tasks list display
     const listEl = document.querySelector('.tasks');

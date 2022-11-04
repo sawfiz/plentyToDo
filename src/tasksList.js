@@ -76,16 +76,6 @@ const tasksList = (() => {
       localStorage.allTasks = JSON.stringify(allTasks);
   }
 
-  function updateStartDate(index, startDate) {
-    allTasks[index].startDate = startDate;
-    localStorage.allTasks = JSON.stringify(allTasks);
-  }
-
-  function updateDueDate(index, dueDate) {
-    allTasks[index].dueDate = dueDate;
-    localStorage.allTasks = JSON.stringify(allTasks);
-  }
-
   // Function to filter tasks list based on currently selected view
   function getFilteredList() {
     // Get stored variables from localStorage
@@ -128,8 +118,21 @@ const tasksList = (() => {
     if (hide === true) {
       filteredList = filteredList.filter((task) => task.state !== 3);
     }
-    console.log(filteredList);
     return filteredList;
+  }
+
+  function sortByKey(array, key, sortAscend) {
+    return array.sort((a, b) => {
+      if (sortAscend) {
+        return a[key] < b[key] ? -1 : 1;
+      }
+      return a[key] > b[key] ? -1 : 1;
+    });
+  }
+
+  // Function to sort list
+  function sortList(key, direction) {
+    return sortByKey(getFilteredList(), key, direction)
   }
 
   return {
@@ -140,6 +143,7 @@ const tasksList = (() => {
     getFilteredList,
     setHideCompletedTasks,
     setCurrentView,
+    sortList,
   };
 })();
 

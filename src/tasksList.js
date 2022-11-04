@@ -54,6 +54,7 @@ const tasksList = (() => {
   // Function to filter tasks list based on currently selected view
   function getFilteredList() {
     let filteredList;
+    let hide = hideCompletedTasks;
 
     switch (currentView) {
       case 'view-Today':
@@ -80,7 +81,7 @@ const tasksList = (() => {
         break;
       case 'view-Done':
         filteredList = allTasks.filter((task) => task.state === 3);
-        hideCompletedTasks = false;
+        hide = false;
         break;
       default:
         filteredList = allTasks;
@@ -88,7 +89,7 @@ const tasksList = (() => {
     }
 
     // Filter out completed tasks based on user setting
-    if (hideCompletedTasks === true) {
+    if (hide === true) {
       filteredList = filteredList.filter((task) => task.state !== 3);
     }
 

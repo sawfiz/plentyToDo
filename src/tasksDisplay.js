@@ -8,7 +8,7 @@ const tasksDisplay = (() => {
   // Function to filter tasks list based on currently selected view
   function filterTasks(taskList) {
     const currentView = localStorage.getItem('currentView');
-    const hideCompletedTasks = JSON.parse(
+    let hideCompletedTasks = JSON.parse(
       localStorage.getItem('hideCompletedTasks')
     );
 
@@ -18,9 +18,8 @@ const tasksDisplay = (() => {
       case 'view-Today':
         filteredList = taskList.filter(
           (task) =>
-            (task.startDate <= getToday() &&
-            task.startDate !== '') || (task.dueDate <= getToday() &&
-            task.dueDate !== '')
+            (task.startDate <= getToday() && task.startDate !== '') ||
+            (task.dueDate <= getToday() && task.dueDate !== '')
         );
         break;
       case 'view-Next-7-Days':

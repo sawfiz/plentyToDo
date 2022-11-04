@@ -41,10 +41,21 @@ const tasksList = (() => {
     localStorage.tasks = JSON.stringify(allTasks);
   }
 
+  function updateDescription(index, description) {
+    allTasks[index].description = description;
+    localStorage.tasks = JSON.stringify(allTasks);
+  }
+
+  function updateStartDate(index, startDate) {
+    allTasks[index].startDate = startDate;
+    localStorage.tasks = JSON.stringify(allTasks);
+  }
+
   function updateDueDate(index, dueDate) {
     allTasks[index].dueDate = dueDate;
     localStorage.tasks = JSON.stringify(allTasks);
   }
+
 
   function deleteTask(task) {
     allTasks.splice(allTasks.indexOf(task), 1);
@@ -96,7 +107,17 @@ const tasksList = (() => {
     return filteredList;
   }
 
-  return { currentView, createTask, updateDueDate, deleteTask, getFilteredList, setHideCompletedTasks, setCurrentView };
+  return {
+    currentView,
+    createTask,
+    updateDescription,
+    updateStartDate,
+    updateDueDate,
+    deleteTask,
+    getFilteredList,
+    setHideCompletedTasks,
+    setCurrentView,
+  };
 })();
 
 export default tasksList;

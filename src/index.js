@@ -80,8 +80,9 @@ function updateTasksDisplay(list) {
       descriptionEl.style.height = `${scHeight}px`;
     });
     descriptionEl.addEventListener('change', () => {
-      task.description = descriptionEl.value;
-      localStorage.tasks = JSON.stringify(allTasks);
+        tasksList.updateDescription(list.indexOf(task), descriptionEl.value)
+    //   task.description = descriptionEl.value;
+    //   localStorage.tasks = JSON.stringify(allTasks);
     });
 
     // TO DO
@@ -102,9 +103,12 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(startDateEl);
     // Allow user the change the start date
     startDateEl.addEventListener('change', () => {
-      task.startDate = startDateEl.value;
-      localStorage.tasks = JSON.stringify(allTasks);
-      location.reload();
+      tasksList.updateStartDate(list.indexOf(task), startDateEl.value);
+      if (task.startDate < getToday() && task.startDate !== '') {
+        startDateEl.classList.add('overstart');
+      } else {
+        startDateEl.classList.remove('overstart')
+      }
     });
 
     // Create the task due date element
@@ -120,6 +124,11 @@ function updateTasksDisplay(list) {
     // Allow user to change the due date
     dueDateEl.addEventListener('change', () => {
       tasksList.updateDueDate(list.indexOf(task), dueDateEl.value);
+      if (task.dueDate < getToday() && task.dueDate !== '') {
+        dueDateEl.classList.add('overdue');
+      } else {
+        dueDateEl.classList.remove('overdue')
+      }
     });
 
     // TO DO

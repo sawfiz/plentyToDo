@@ -113,8 +113,10 @@ function updateTasksDisplay(list) {
       tasksList.updateTask(task.number, 'startDate', startDateEl.value);
       if (task.startDate < getToday() && task.startDate !== '') {
         startDateEl.classList.add('overstart');
+        descriptionEl.classList.add('overstart');
       } else {
         startDateEl.classList.remove('overstart');
+        descriptionEl.classList.remove('overstart');
       }
     });
 
@@ -133,8 +135,10 @@ function updateTasksDisplay(list) {
       tasksList.updateTask(task.number, 'dueDate', dueDateEl.value);
       if (task.dueDate < getToday() && task.dueDate !== '') {
         dueDateEl.classList.add('overdue');
+        descriptionEl.classList.add('overdue');
       } else {
         dueDateEl.classList.remove('overdue');
+        descriptionEl.classList.remove('overdue');
       }
     });
 

@@ -119,9 +119,7 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(dueDateEl);
     // Allow user to change the due date
     dueDateEl.addEventListener('change', () => {
-      task.dueDate = dueDateEl.value;
-      localStorage.tasks = JSON.stringify(allTasks);
-      location.reload();
+      tasksList.updateDueDate(list.indexOf(task), dueDateEl.value);
     });
 
     // TO DO
@@ -135,9 +133,8 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(deleteEl);
     // Allow user to delete a task
     deleteEl.addEventListener('click', () => {
-      allTasks.splice(allTasks.indexOf(task), 1);
+      tasksList.deleteTask(task);
       listEl.removeChild(taskEl);
-      localStorage.tasks = JSON.stringify(allTasks);
     });
 
     // Add the task to display
@@ -169,12 +166,35 @@ const clickHandler = (() => {
     });
   })();
 
+  // Active views section in the sidebar
+  const getCurrentview = (() => {
+    // Get currentView from localStorage.  Default to 'Today'
+    let currentView = tasksList.currentView;
+    if (currentView === null) currentView = 'view-Today';
+    let currentViewEl = document.querySelector(`#${currentView}`);
+    currentViewEl.classList.add('active');
+
+    const viewsEls = Array.from(document.querySelectorAll('.view'));
+    viewsEls.forEach((viewEl) => {
+      viewEl.addEventListener('click', () => {
+        viewsEls.forEach((El) => {
+          El.classList.remove('active');
+        });
+        viewEl.classList.add('active');
+        tasksList.setCurrentView(viewEl.id);
+        updateTasksDisplay(tasksList.getFilteredList());
+      });
+    });
+
+    return {};
+  })();
+
   // Functions to sort the tasks
   const sortTasks = () => {
     const sortFoucsEl = document.querySelector('#focus-sort');
 
     sortFoucsEl.addEventListener('click', () => {
-      const sortedList = taskList.sortByKey('focus', focusSortAscend);
+      const sortedList = tasksList.sortByKey('focus', focusSortAscend);
       updateTasksDisplay(sortedList);
       focusSortAscend = !focusSortAscend;
     });

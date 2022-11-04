@@ -21,6 +21,11 @@ const tasksList = (() => {
     localStorage.setItem('hideCompletedTasks', hideCompletedTasks);
   }
 
+  function setCurrentView(setting) {
+    currentView = setting;
+    localStorage.setItem('currentView', currentView);
+  }
+
   function createTask() {
     const newTask = taskFactory(
       false,
@@ -33,6 +38,16 @@ const tasksList = (() => {
     );
     // Insert the new task at the beginning of the allTasks list
     allTasks.unshift(newTask);
+    localStorage.tasks = JSON.stringify(allTasks);
+  }
+
+  function updateDueDate(index, dueDate) {
+    allTasks[index].dueDate = dueDate;
+    localStorage.tasks = JSON.stringify(allTasks);
+  }
+
+  function deleteTask(task) {
+    allTasks.splice(allTasks.indexOf(task), 1);
     localStorage.tasks = JSON.stringify(allTasks);
   }
 
@@ -80,7 +95,7 @@ const tasksList = (() => {
     return filteredList;
   }
 
-  return { createTask, getFilteredList, setHideCompletedTasks };
+  return { currentView, createTask, updateDueDate, deleteTask, getFilteredList, setHideCompletedTasks, setCurrentView };
 })();
 
 export default tasksList;

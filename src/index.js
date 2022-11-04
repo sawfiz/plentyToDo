@@ -153,7 +153,7 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(deleteEl);
     // Allow user to delete a task
     deleteEl.addEventListener('click', () => {
-      tasksList.updateTask(task.number, 'delete');
+      tasksList.deleteTask(task.number);
       listEl.removeChild(taskEl);
     });
 

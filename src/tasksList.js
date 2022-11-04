@@ -67,13 +67,16 @@ const tasksList = (() => {
       case 'dueDate':
         task.dueDate = value;
         break;
-      case 'delete':
-        allTasks.splice(allTasks.indexOf(task), 1);
-        break;
 
       default:
         break;
     }
+    localStorage.allTasks = JSON.stringify(allTasks);
+  }
+
+  function deleteTask(number) {
+    const task = allTasks.find((element) => element.number === number);
+    allTasks.splice(allTasks.indexOf(task), 1);
     localStorage.allTasks = JSON.stringify(allTasks);
   }
 
@@ -123,7 +126,9 @@ const tasksList = (() => {
     if (hide === true) {
       filteredList = filteredList.filter((task) => task.state !== stateDone);
     }
-    return filteredList;
+
+    // Sort the list by focus by default
+    return sortByKey(filteredList, 'focus', false);
   }
 
   function sortByKey(array, key, sortAscend) {
@@ -145,6 +150,7 @@ const tasksList = (() => {
     currentView,
     createTask,
     updateTask,
+    deleteTask,
     getFilteredList,
     setHideCompletedTasks,
     setCurrentView,

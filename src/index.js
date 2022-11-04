@@ -2,6 +2,7 @@ import taskFactory from './task';
 import helpPanel from './help';
 import { getToday } from './util';
 import tasksList from './tasksList';
+import stateDone from './constants';
 
 // Function to refresh the tasks list dispalay
 function updateTasksDisplay(list) {
@@ -56,10 +57,16 @@ function updateTasksDisplay(list) {
     // Allow user to change task staus
     stateEl.addEventListener('change', () => {
       tasksList.updateTask(task.number, 'state', stateEl.selectedIndex);
-      if (tasksList.hideCompletedTasks === true && stateEl.selectedIndex === 3) {
+      if (
+        tasksList.hideCompletedTasks === true &&
+        stateEl.selectedIndex === stateDone
+      ) {
         listEl.removeChild(taskEl);
       }
-      if ((tasksList.currentView = 'view-Done' && stateEl.selectedIndex !== 3)) {
+      if (
+        (tasksList.currentView =
+          'view-Done' && stateEl.selectedIndex !== stateDone)
+      ) {
         listEl.removeChild(taskEl);
       }
     });
@@ -226,7 +233,10 @@ const clickHandler = (() => {
     const sortDescription = (() => {
       const sortDescriptionEl = document.querySelector('#description-sort');
       sortDescriptionEl.addEventListener('click', () => {
-        const sortedList = tasksList.sortList('description', descriptionSortAscend);
+        const sortedList = tasksList.sortList(
+          'description',
+          descriptionSortAscend
+        );
         updateTasksDisplay(sortedList);
         descriptionSortAscend = !descriptionSortAscend;
       });
@@ -244,7 +254,10 @@ const clickHandler = (() => {
     const sortStartDate = (() => {
       const sortStartDateEl = document.querySelector('#start-date-sort');
       sortStartDateEl.addEventListener('click', () => {
-        const sortedList = tasksList.sortList('startDate', startDatetSortAscend);
+        const sortedList = tasksList.sortList(
+          'startDate',
+          startDatetSortAscend
+        );
         updateTasksDisplay(sortedList);
         startDatetSortAscend = !startDatetSortAscend;
       });

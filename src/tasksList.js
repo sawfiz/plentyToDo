@@ -1,5 +1,6 @@
 import taskFactory from './task';
 import { getToday, get7Days } from './util';
+import stateDone from './constants';
 
 const tasksList = (() => {
   // Get stored index from localStorage
@@ -83,6 +84,10 @@ const tasksList = (() => {
     let hide = hideCompletedTasks;
 
     switch (currentView) {
+        case 'view-Inbox':
+            filteredList = allTasks.filter((task) => task.project === 'Inbox');
+            hide = false;
+            break; 
       case 'view-Today':
         filteredList = allTasks.filter(
           (task) =>
@@ -106,7 +111,7 @@ const tasksList = (() => {
         );
         break;
       case 'view-Done':
-        filteredList = allTasks.filter((task) => task.state === 3);
+        filteredList = allTasks.filter((task) => task.state === stateDone);
         hide = false;
         break;
       default:
@@ -116,7 +121,7 @@ const tasksList = (() => {
 
     // Filter out completed tasks based on user setting
     if (hide === true) {
-      filteredList = filteredList.filter((task) => task.state !== 3);
+      filteredList = filteredList.filter((task) => task.state !== stateDone);
     }
     return filteredList;
   }

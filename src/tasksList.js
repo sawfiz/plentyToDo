@@ -50,31 +50,31 @@ const tasksList = (() => {
   }
 
   function updateTask(number, attr, value) {
-      const task = allTasks.find(element => element.number === number);
-      switch (attr) {
-        case 'focus':
-            task.focus = value; 
-            break;
-        case 'state':
-            task.state = value; 
-            break;
-        case 'description':
-            task.description = value; 
-            break;
-        case 'startDate':
-            task.startDate = value; 
-            break;
-        case 'dueDate':
-            task.dueDate = value; 
-            break;
-        case 'delete':
-            allTasks.splice(allTasks.indexOf(task), 1);
-            break;
-      
-        default:
-            break;
-      }
-      localStorage.allTasks = JSON.stringify(allTasks);
+    const task = allTasks.find((element) => element.number === number);
+    switch (attr) {
+      case 'focus':
+        task.focus = value;
+        break;
+      case 'state':
+        task.state = value;
+        break;
+      case 'description':
+        task.description = value;
+        break;
+      case 'startDate':
+        task.startDate = value;
+        break;
+      case 'dueDate':
+        task.dueDate = value;
+        break;
+      case 'delete':
+        allTasks.splice(allTasks.indexOf(task), 1);
+        break;
+
+      default:
+        break;
+    }
+    localStorage.allTasks = JSON.stringify(allTasks);
   }
 
   // Function to filter tasks list based on currently selected view
@@ -84,10 +84,10 @@ const tasksList = (() => {
     let hide = hideCompletedTasks;
 
     switch (currentView) {
-        case 'view-Inbox':
-            filteredList = allTasks.filter((task) => task.project === 'Inbox');
-            hide = false;
-            break; 
+      case 'view-Inbox':
+        filteredList = allTasks.filter((task) => task.project === 'Inbox');
+        hide = false;
+        break;
       case 'view-Today':
         filteredList = allTasks.filter(
           (task) =>
@@ -137,7 +137,7 @@ const tasksList = (() => {
 
   // Function to sort list
   function sortList(key, direction) {
-    return sortByKey(getFilteredList(), key, direction)
+    return sortByKey(getFilteredList(), key, direction);
   }
 
   return {

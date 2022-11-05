@@ -219,7 +219,6 @@ const clickHandler = (() => {
 
     const sortFoucsEl = document.querySelector('#focus-sort');
     sortFoucsEl.addEventListener('click', () => {
-      console.log('sort');
       const sortedList = tasksList.sortList('focus', focusSortAscend);
       updateTasksDisplay(sortedList);
       focusSortAscend = !focusSortAscend;

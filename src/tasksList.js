@@ -97,6 +97,7 @@ const tasksList = (() => {
             (task.startDate <= getToday() && task.startDate !== '') ||
             (task.dueDate <= getToday() && task.dueDate !== '')
         );
+        filteredList = sortByKey(filteredList, 'focus', false);
         break;
       case 'view-Next-7-Days':
         filteredList = allTasks.filter(
@@ -128,7 +129,7 @@ const tasksList = (() => {
     }
 
     // Sort the list by focus by default
-    return sortByKey(filteredList, 'focus', false);
+    return filteredList;
   }
 
   function sortByKey(array, key, sortAscend) {

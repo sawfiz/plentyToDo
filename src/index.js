@@ -179,7 +179,17 @@ const clickHandler = (() => {
     // Allow user to add a new task
     bigAddBtn.addEventListener('click', () => {
       tasksList.createTask();
+
+      const viewsEls = Array.from(document.querySelectorAll('.view'));
+      viewsEls.forEach((El) => {
+        El.classList.remove('active');
+      });
+
+      document.querySelector('#view-Today').classList.add('active');
+
+      tasksList.setCurrentView('view-Today');
       updateTasksDisplay(tasksList.getFilteredList());
+
       // Focus the cursor on the new task's description input field
       document.querySelector('.task-task').focus();
     });
@@ -190,8 +200,8 @@ const clickHandler = (() => {
     // Get currentView from localStorage.  Default to 'Today'
     let currentView = tasksList.currentView;
     if (currentView === null) currentView = 'view-Today';
-    let currentViewEl = document.querySelector(`#${currentView}`);
-    currentViewEl.classList.add('active');
+
+    document.querySelector(`#${currentView}`).classList.add('active');
 
     const viewsEls = Array.from(document.querySelectorAll('.view'));
     viewsEls.forEach((viewEl) => {

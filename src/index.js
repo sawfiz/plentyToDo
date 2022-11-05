@@ -58,6 +58,7 @@ function updateTasksDisplay(list) {
     // Display current task status
     stateEl.selectedIndex = task.state;
     taskEl.appendChild(stateEl);
+
     // Allow user to change task staus
     stateEl.addEventListener('change', () => {
       tasksList.updateTask(task.number, 'state', stateEl.selectedIndex);
@@ -67,7 +68,7 @@ function updateTasksDisplay(list) {
       ) {
         listEl.removeChild(taskEl);
       } else if (
-        (tasksList.currentView =
+        (tasksList.currentView ===
           'view-Done' && stateEl.selectedIndex !== stateDone)
       ) {
         listEl.removeChild(taskEl);

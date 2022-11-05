@@ -191,7 +191,15 @@ const clickHandler = (() => {
       updateTasksDisplay(tasksList.getFilteredList());
 
       // Focus the cursor on the new task's description input field
-      document.querySelector('.task-task').focus();
+      // document.querySelector('.task-task').focus();
+      const descriptionEls = Array.from(document.querySelectorAll('.task-task'))
+      const emptyEls = descriptionEls.filter((task) => task.value === '');
+      console.log(emptyEls);
+      
+      emptyEls[0].focus();
+        // if (!task.innerText) task.focus();
+
+      
     });
   })();
 

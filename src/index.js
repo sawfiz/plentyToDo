@@ -3,6 +3,7 @@ import helpPanel from './help';
 import { getToday } from './util';
 import tasksList from './tasksList';
 import stateDone from './constants';
+import createElement from './creatElement';
 
 // Function to refresh the tasks list dispalay
 function updateTasksDisplay(list) {
@@ -13,12 +14,14 @@ function updateTasksDisplay(list) {
   // Add filtered list of tasks onto the webpage
   list.forEach((task) => {
     // Creat a new task element for display
-    const taskEl = document.createElement('div');
-    taskEl.classList.add('task');
+    const taskEl = createElement('div', ['task'], {});
+    // const taskEl = document.createElement('div');
+    // taskEl.classList.add('task');
 
     // Create the task focus element
-    const focusEl = document.createElement('div');
-    taskEl.classList.add('task-focus');
+    const focusEl = createElement('div', ['task-focus'], {});
+    // const focusEl = document.createElement('div');
+    // taskEl.classList.add('task-focus');
     focusEl.innerText = task.focus === true ? '🔆' : '🫥';
     taskEl.appendChild(focusEl);
     // Make the task focus element toggle on click
@@ -29,8 +32,9 @@ function updateTasksDisplay(list) {
     });
 
     // Create the task status element, make it a drop down list
-    const stateEl = document.createElement('select');
-    stateEl.classList.add('task-item');
+    const stateEl = createElement('select', ['task-item'], {});
+    // const stateEl = document.createElement('select');
+    // stateEl.classList.add('task-item');
     // Add option 0 - Not Started️
     const toDoEl = document.createElement('option');
     let t = document.createTextNode('⭕️');
@@ -62,8 +66,7 @@ function updateTasksDisplay(list) {
         stateEl.selectedIndex === stateDone
       ) {
         listEl.removeChild(taskEl);
-      }
-      if (
+      } else if (
         (tasksList.currentView =
           'view-Done' && stateEl.selectedIndex !== stateDone)
       ) {
@@ -72,8 +75,9 @@ function updateTasksDisplay(list) {
     });
 
     // Create the task description input element
-    const descriptionEl = document.createElement('textarea');
-    descriptionEl.classList.add('task-task');
+    const descriptionEl = createElement('textarea', ['task-task'], {});
+    // const descriptionEl = document.createElement('textarea');
+    // descriptionEl.classList.add('task-task');
     if (task.startDate < getToday() && task.startDate !== '') {
       descriptionEl.classList.add('overstart');
     }
@@ -93,16 +97,21 @@ function updateTasksDisplay(list) {
     });
 
     // TO DO
-    const projectEl = document.createElement('div');
-    projectEl.classList.add('task-item');
+    const projectEl = createElement('div', ['task-item'], {});
+    // const projectEl = document.createElement('div');
+    // projectEl.classList.add('task-item');
     projectEl.innerText = task.project;
     taskEl.appendChild(projectEl);
 
     // Create the task start date element
-    const startDateEl = document.createElement('input');
-    startDateEl.classList.add('task-item');
-    startDateEl.setAttribute('type', 'date');
-    startDateEl.setAttribute('required', '');
+    const startDateEl = createElement('input', ['task-item'], {
+      type: 'date',
+      required: '',
+    });
+    // const startDateEl = document.createElement('input');
+    // startDateEl.classList.add('task-item');
+    // startDateEl.setAttribute('type', 'date');
+    // startDateEl.setAttribute('required', '');
     if (task.startDate < getToday() && task.startDate !== '') {
       startDateEl.classList.add('overstart');
     }
@@ -121,10 +130,14 @@ function updateTasksDisplay(list) {
     });
 
     // Create the task due date element
-    const dueDateEl = document.createElement('input');
-    dueDateEl.classList.add('task-item');
-    dueDateEl.setAttribute('type', 'date');
-    dueDateEl.setAttribute('required', '');
+    const dueDateEl = createElement('input', ['task-item'], {
+      type: 'date',
+      required: '',
+    });
+    // const dueDateEl = document.createElement('input');
+    // dueDateEl.classList.add('task-item');
+    // dueDateEl.setAttribute('type', 'date');
+    // dueDateEl.setAttribute('required', '');
     if (task.dueDate < getToday() && task.dueDate !== '') {
       dueDateEl.classList.add('overdue');
     }
@@ -143,8 +156,9 @@ function updateTasksDisplay(list) {
     });
 
     // TO DO
-    const recurEl = document.createElement('div');
-    recurEl.classList.add('task-item', 'mdi', 'mdi-repeat');
+    // const recurEl = document.createElement('div');
+    // recurEl.classList.add('task-item', 'mdi', 'mdi-repeat');
+    const recurEl = createElement('div', ['task-item', 'mdi', 'mdi-repeat'], {})
     taskEl.appendChild(recurEl);
 
     // Create the task delete element
@@ -192,14 +206,14 @@ const clickHandler = (() => {
 
       // Focus the cursor on the new task's description input field
       // document.querySelector('.task-task').focus();
-      const descriptionEls = Array.from(document.querySelectorAll('.task-task'))
+      const descriptionEls = Array.from(
+        document.querySelectorAll('.task-task')
+      );
       const emptyEls = descriptionEls.filter((task) => task.value === '');
       console.log(emptyEls);
-      
-      emptyEls[0].focus();
-        // if (!task.innerText) task.focus();
 
-      
+      emptyEls[0].focus();
+      // if (!task.innerText) task.focus();
     });
   })();
 

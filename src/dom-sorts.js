@@ -1,4 +1,4 @@
-import tasksList from './tasksList';
+import tasksManager from './tasks-manager';
 
 // Click handlers for the sort buttons
 const sortTasks = (() => {
@@ -11,7 +11,7 @@ const sortTasks = (() => {
 
   const sortFoucsEl = document.querySelector('#focus-sort');
   sortFoucsEl.addEventListener('click', () => {
-    const sortedList = tasksList.sortList('focus', focusSortAscend);
+    const sortedList = tasksManager.sortList('focus', focusSortAscend);
     updateTasksDisplay(sortedList);
     focusSortAscend = !focusSortAscend;
   });
@@ -19,7 +19,7 @@ const sortTasks = (() => {
   const sortStatus = (() => {
     const sortStatusEl = document.querySelector('#status-sort');
     sortStatusEl.addEventListener('click', () => {
-      const sortedList = tasksList.sortList('state', statusSortAscend);
+      const sortedList = tasksManager.sortList('state', statusSortAscend);
       updateTasksDisplay(sortedList);
       statusSortAscend = !statusSortAscend;
     });
@@ -28,7 +28,7 @@ const sortTasks = (() => {
   const sortDescription = (() => {
     const sortDescriptionEl = document.querySelector('#description-sort');
     sortDescriptionEl.addEventListener('click', () => {
-      const sortedList = tasksList.sortList(
+      const sortedList = tasksManager.sortList(
         'description',
         descriptionSortAscend
       );
@@ -40,7 +40,7 @@ const sortTasks = (() => {
   const sortProject = (() => {
     const sortProjectEl = document.querySelector('#project-sort');
     sortProjectEl.addEventListener('click', () => {
-      const sortedList = tasksList.sortList('project', projectSortAscend);
+      const sortedList = tasksManager.sortList('project', projectSortAscend);
       updateTasksDisplay(sortedList);
       projectSortAscend = !projectSortAscend;
     });
@@ -49,7 +49,10 @@ const sortTasks = (() => {
   const sortStartDate = (() => {
     const sortStartDateEl = document.querySelector('#start-date-sort');
     sortStartDateEl.addEventListener('click', () => {
-      const sortedList = tasksList.sortList('startDate', startDatetSortAscend);
+      const sortedList = tasksManager.sortList(
+        'startDate',
+        startDatetSortAscend
+      );
       updateTasksDisplay(sortedList);
       startDatetSortAscend = !startDatetSortAscend;
     });
@@ -58,7 +61,7 @@ const sortTasks = (() => {
   const sortDueDate = (() => {
     const sortDueDateEl = document.querySelector('#due-date-sort');
     sortDueDateEl.addEventListener('click', () => {
-      const sortedList = tasksList.sortList('dueDate', dueDatetSortAscend);
+      const sortedList = tasksManager.sortList('dueDate', dueDatetSortAscend);
       updateTasksDisplay(sortedList);
       dueDatetSortAscend = !dueDatetSortAscend;
     });

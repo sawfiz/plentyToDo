@@ -1,5 +1,5 @@
 import stateDone from './constants';
-import tasksList from './tasksList';
+import tasksManager from './tasks-manager';
 import { getToday, createElement } from './utils';
 
 // Function to refresh the tasks list dispalay
@@ -21,7 +21,7 @@ function updateTasksDisplay(list) {
     focusEl.addEventListener('click', () => {
       task.focus = !task.focus;
       focusEl.innerText = task.focus === true ? '🔆' : '🫥';
-      tasksList.updateTask(task.number, 'focus', task.focus);
+      tasksManager.updateTask(task.number, 'focus', task.focus);
     });
 
     // Create the task status element, make it a drop down list
@@ -52,14 +52,14 @@ function updateTasksDisplay(list) {
 
     // Allow user to change task staus
     stateEl.addEventListener('change', () => {
-      tasksList.updateTask(task.number, 'state', stateEl.selectedIndex);
+      tasksManager.updateTask(task.number, 'state', stateEl.selectedIndex);
       if (
-        tasksList.hideCompletedTasks === true &&
+        tasksManager.hideCompletedTasks === true &&
         stateEl.selectedIndex === stateDone
       ) {
         listEl.removeChild(taskEl);
       } else if (
-        tasksList.currentView === 'view-Done' &&
+        tasksManager.currentView === 'view-Done' &&
         stateEl.selectedIndex !== stateDone
       ) {
         listEl.removeChild(taskEl);
@@ -68,13 +68,6 @@ function updateTasksDisplay(list) {
 
     // Create the task description input element
     const descriptionEl = createElement('textarea', ['task-task'], {});
-    // if (task.startDate < getToday() && task.startDate !== '') {
-    //   descriptionEl.classList.add('overstart');
-    // }
-    // if (task.dueDate < getToday() && task.dueDate !== '') {
-    //   descriptionEl.classList.remove('overstart');
-    //   descriptionEl.classList.add('overdue');
-    // }
     descriptionEl.value = task.description;
     taskEl.appendChild(descriptionEl);
     // Allow user to change task description
@@ -83,7 +76,7 @@ function updateTasksDisplay(list) {
       descriptionEl.style.height = `${scHeight}px`;
     });
     descriptionEl.addEventListener('change', () => {
-      tasksList.updateTask(task.number, 'description', descriptionEl.value);
+      tasksManager.updateTask(task.number, 'description', descriptionEl.value);
     });
 
     // TO DO
@@ -104,7 +97,7 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(startDateEl);
     // Allow user the change the start date
     startDateEl.addEventListener('change', () => {
-      tasksList.updateTask(task.number, 'startDate', startDateEl.value);
+      tasksManager.updateTask(task.number, 'startDate', startDateEl.value);
       if (task.startDate < getToday() && task.startDate !== '') {
         startDateEl.classList.add('overstart');
         descriptionEl.classList.add('overstart');
@@ -128,7 +121,7 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(dueDateEl);
     // Allow user to change the due date
     dueDateEl.addEventListener('change', () => {
-      tasksList.updateTask(task.number, 'dueDate', dueDateEl.value);
+      tasksManager.updateTask(task.number, 'dueDate', dueDateEl.value);
       if (task.dueDate < getToday() && task.dueDate !== '') {
         dueDateEl.classList.add('overdue');
         descriptionEl.classList.remove('overstart');
@@ -156,7 +149,7 @@ function updateTasksDisplay(list) {
     taskEl.appendChild(deleteEl);
     // Allow user to delete a task
     deleteEl.addEventListener('click', () => {
-      tasksList.deleteTask(task.number);
+      tasksManager.deleteTask(task.number);
       listEl.removeChild(taskEl);
     });
 

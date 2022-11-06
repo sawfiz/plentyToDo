@@ -2,7 +2,7 @@ import taskFactory from './task';
 import { getToday, get7Days } from './utils';
 import stateDone from './constants';
 
-const tasksList = (() => {
+const tasksManager = (() => {
   // Get stored index from localStorage
   let number = JSON.parse(localStorage.getItem('number'));
   if (number === null) number = 0;
@@ -159,4 +159,4 @@ const tasksList = (() => {
   };
 })();
 
-export default tasksList;
+export default tasksManager;

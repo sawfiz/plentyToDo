@@ -1,9 +1,9 @@
-import tasksList from './tasksList';
+import tasksManager from './tasks-manager';
 
 // Click handler for the views section in the sidebar
 const getCurrentview = (() => {
   // Get currentView from localStorage.  Default to 'Today'
-  let currentView = tasksList.currentView;
+  let currentView = tasksManager.currentView;
   if (currentView === null) currentView = 'view-Today';
   // Style currentView to active
   document.querySelector(`#${currentView}`).classList.add('active');
@@ -17,8 +17,8 @@ const getCurrentview = (() => {
       });
       viewEl.classList.add('active');
       // Update display to clicked view
-      tasksList.setCurrentView(viewEl.id);
-      updateTasksDisplay(tasksList.getFilteredList());
+      tasksManager.setCurrentView(viewEl.id);
+      updateTasksDisplay(tasksManager.getFilteredList());
     });
   });
 

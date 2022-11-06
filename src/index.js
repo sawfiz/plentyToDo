@@ -1,4 +1,4 @@
-import tasksList from './tasksList';
+import tasksList from './tasks-manager';
 
 // Click handlers
 import setHideCompletedTasks from './dom-settings';
@@ -8,7 +8,7 @@ import getCurrentview from './dom-views';
 import sortTasks from './dom-sorts';
 
 // Display update functions
-import updateTasksDisplay from './dom-update-tasks-display'
+import updateTasksDisplay from './dom-update-tasks';
 
 // Run the app
 updateTasksDisplay(tasksList.getFilteredList());

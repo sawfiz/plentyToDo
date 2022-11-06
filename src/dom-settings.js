@@ -1,4 +1,4 @@
-import tasksList from './tasksList';
+import tasksList from './tasks-manager';
 
 // Function for the hide completed tasks setting
 const setHideCompletedTasks = (() => {

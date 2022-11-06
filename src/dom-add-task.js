@@ -1,14 +1,14 @@
-import tasksList from './tasksList';
+import tasksManager from './tasks-manager';
 
 // Click handler for the big add button
 const addNewTask = (() => {
   const bigAddBtn = document.querySelector('.big-add');
   bigAddBtn.addEventListener('click', () => {
-    tasksList.createTask();
+    tasksManager.createTask();
 
     // No matter which view the app is in, switch to the Inbox view
-    tasksList.setCurrentView('view-Today');
-    updateTasksDisplay(tasksList.getFilteredList());
+    tasksManager.setCurrentView('view-Today');
+    updateTasksDisplay(tasksManager.getFilteredList());
 
     // Style "Today" to active
     const viewsEls = Array.from(document.querySelectorAll('.view'));

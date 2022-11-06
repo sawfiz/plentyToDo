@@ -15,13 +15,9 @@ function updateTasksDisplay(list) {
   list.forEach((task) => {
     // Creat a new task element for display
     const taskEl = createElement('div', ['task'], {});
-    // const taskEl = document.createElement('div');
-    // taskEl.classList.add('task');
 
     // Create the task focus element
     const focusEl = createElement('div', ['task-focus'], {});
-    // const focusEl = document.createElement('div');
-    // taskEl.classList.add('task-focus');
     focusEl.innerText = task.focus === true ? '🔆' : '🫥';
     taskEl.appendChild(focusEl);
     // Make the task focus element toggle on click
@@ -33,8 +29,6 @@ function updateTasksDisplay(list) {
 
     // Create the task status element, make it a drop down list
     const stateEl = createElement('select', ['task-item'], {});
-    // const stateEl = document.createElement('select');
-    // stateEl.classList.add('task-item');
     // Add option 0 - Not Started️
     const toDoEl = document.createElement('option');
     let t = document.createTextNode('⭕️');
@@ -68,8 +62,8 @@ function updateTasksDisplay(list) {
       ) {
         listEl.removeChild(taskEl);
       } else if (
-        (tasksList.currentView ===
-          'view-Done' && stateEl.selectedIndex !== stateDone)
+        tasksList.currentView === 'view-Done' &&
+        stateEl.selectedIndex !== stateDone
       ) {
         listEl.removeChild(taskEl);
       }
@@ -77,8 +71,6 @@ function updateTasksDisplay(list) {
 
     // Create the task description input element
     const descriptionEl = createElement('textarea', ['task-task'], {});
-    // const descriptionEl = document.createElement('textarea');
-    // descriptionEl.classList.add('task-task');
     if (task.startDate < getToday() && task.startDate !== '') {
       descriptionEl.classList.add('overstart');
     }
@@ -99,8 +91,6 @@ function updateTasksDisplay(list) {
 
     // TO DO
     const projectEl = createElement('div', ['task-item'], {});
-    // const projectEl = document.createElement('div');
-    // projectEl.classList.add('task-item');
     projectEl.innerText = task.project;
     taskEl.appendChild(projectEl);
 
@@ -109,10 +99,6 @@ function updateTasksDisplay(list) {
       type: 'date',
       required: '',
     });
-    // const startDateEl = document.createElement('input');
-    // startDateEl.classList.add('task-item');
-    // startDateEl.setAttribute('type', 'date');
-    // startDateEl.setAttribute('required', '');
     if (task.startDate < getToday() && task.startDate !== '') {
       startDateEl.classList.add('overstart');
     }
@@ -135,10 +121,6 @@ function updateTasksDisplay(list) {
       type: 'date',
       required: '',
     });
-    // const dueDateEl = document.createElement('input');
-    // dueDateEl.classList.add('task-item');
-    // dueDateEl.setAttribute('type', 'date');
-    // dueDateEl.setAttribute('required', '');
     if (task.dueDate < getToday() && task.dueDate !== '') {
       dueDateEl.classList.add('overdue');
     }
@@ -157,9 +139,11 @@ function updateTasksDisplay(list) {
     });
 
     // TO DO
-    // const recurEl = document.createElement('div');
-    // recurEl.classList.add('task-item', 'mdi', 'mdi-repeat');
-    const recurEl = createElement('div', ['task-item', 'mdi', 'mdi-repeat'], {})
+    const recurEl = createElement(
+      'div',
+      ['task-item', 'mdi', 'mdi-repeat'],
+      {}
+    );
     taskEl.appendChild(recurEl);
 
     // Create the task delete element
@@ -188,51 +172,52 @@ const clickHandler = (() => {
     });
   })();
 
-  // Active big add button
+  // Click handler for the big add button
   const addNewTask = (() => {
     const bigAddBtn = document.querySelector('.big-add');
-    // Allow user to add a new task
     bigAddBtn.addEventListener('click', () => {
       tasksList.createTask();
 
+      // No matter which view the app is in, switch to the Inbox view
+      tasksList.setCurrentView('view-Today');
+      updateTasksDisplay(tasksList.getFilteredList());
+
+      // Style "Today" to active
       const viewsEls = Array.from(document.querySelectorAll('.view'));
       viewsEls.forEach((El) => {
         El.classList.remove('active');
       });
-
       document.querySelector('#view-Today').classList.add('active');
 
-      tasksList.setCurrentView('view-Today');
-      updateTasksDisplay(tasksList.getFilteredList());
-
       // Focus the cursor on the new task's description input field
-      // document.querySelector('.task-task').focus();
+      // Find all the task descriptions
       const descriptionEls = Array.from(
         document.querySelectorAll('.task-task')
       );
+      // Filter the list for tasks with empty description
       const emptyEls = descriptionEls.filter((task) => task.value === '');
-      console.log(emptyEls);
-
+      // Focus on the first task with empty description to make it easier for user to start entering details
       emptyEls[0].focus();
-      // if (!task.innerText) task.focus();
     });
   })();
 
-  // Active views section in the sidebar
+  // Click handler for the views section in the sidebar
   const getCurrentview = (() => {
     // Get currentView from localStorage.  Default to 'Today'
     let currentView = tasksList.currentView;
     if (currentView === null) currentView = 'view-Today';
-
+    // Style currentView to active
     document.querySelector(`#${currentView}`).classList.add('active');
 
     const viewsEls = Array.from(document.querySelectorAll('.view'));
     viewsEls.forEach((viewEl) => {
       viewEl.addEventListener('click', () => {
+        // Style the clicked view active
         viewsEls.forEach((El) => {
           El.classList.remove('active');
         });
         viewEl.classList.add('active');
+        // Update display to clicked view
         tasksList.setCurrentView(viewEl.id);
         updateTasksDisplay(tasksList.getFilteredList());
       });
@@ -241,7 +226,7 @@ const clickHandler = (() => {
     return {};
   })();
 
-  // Functions to sort the tasks
+  // Click handlers for the sort buttons
   const sortTasks = (() => {
     let focusSortAscend = true;
     let statusSortAscend = true;

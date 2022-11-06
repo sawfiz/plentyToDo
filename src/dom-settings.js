@@ -1,4 +1,5 @@
 import tasksList from './tasks-manager';
+import updateTasksDisplay from './dom-update-tasks';
 
 // Function for the hide completed tasks setting
 const setHideCompletedTasks = (() => {

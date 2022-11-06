@@ -1,4 +1,5 @@
 import tasksManager from './tasks-manager';
+import updateTasksDisplay from './dom-update-tasks';
 
 // Click handler for the views section in the sidebar
 const getCurrentview = (() => {

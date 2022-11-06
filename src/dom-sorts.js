@@ -1,4 +1,5 @@
 import tasksManager from './tasks-manager';
+import updateTasksDisplay from './dom-update-tasks';
 
 // Click handlers for the sort buttons
 const sortTasks = (() => {

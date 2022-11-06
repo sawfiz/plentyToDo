@@ -1,5 +1,5 @@
 import taskFactory from './task';
-import { getToday, get7Days } from './util';
+import { getToday, get7Days } from './utils';
 import stateDone from './constants';
 
 const tasksList = (() => {

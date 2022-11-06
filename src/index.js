@@ -71,13 +71,13 @@ function updateTasksDisplay(list) {
 
     // Create the task description input element
     const descriptionEl = createElement('textarea', ['task-task'], {});
-    if (task.startDate < getToday() && task.startDate !== '') {
-      descriptionEl.classList.add('overstart');
-    }
-    if (task.dueDate < getToday() && task.dueDate !== '') {
-      descriptionEl.classList.remove('overstart');
-      descriptionEl.classList.add('overdue');
-    }
+    // if (task.startDate < getToday() && task.startDate !== '') {
+    //   descriptionEl.classList.add('overstart');
+    // }
+    // if (task.dueDate < getToday() && task.dueDate !== '') {
+    //   descriptionEl.classList.remove('overstart');
+    //   descriptionEl.classList.add('overdue');
+    // }
     descriptionEl.value = task.description;
     taskEl.appendChild(descriptionEl);
     // Allow user to change task description
@@ -101,6 +101,7 @@ function updateTasksDisplay(list) {
     });
     if (task.startDate < getToday() && task.startDate !== '') {
       startDateEl.classList.add('overstart');
+      descriptionEl.classList.add('overstart');
     }
     startDateEl.value = task.startDate;
     taskEl.appendChild(startDateEl);
@@ -123,6 +124,8 @@ function updateTasksDisplay(list) {
     });
     if (task.dueDate < getToday() && task.dueDate !== '') {
       dueDateEl.classList.add('overdue');
+      descriptionEl.classList.remove('overstart');
+      descriptionEl.classList.add('overdue');
     }
     dueDateEl.value = task.dueDate;
     taskEl.appendChild(dueDateEl);
@@ -131,10 +134,14 @@ function updateTasksDisplay(list) {
       tasksList.updateTask(task.number, 'dueDate', dueDateEl.value);
       if (task.dueDate < getToday() && task.dueDate !== '') {
         dueDateEl.classList.add('overdue');
+        descriptionEl.classList.remove('overstart');
         descriptionEl.classList.add('overdue');
       } else {
         dueDateEl.classList.remove('overdue');
         descriptionEl.classList.remove('overdue');
+        if (task.startDate < getToday() && task.startDate !== '') {
+          descriptionEl.classList.add('overstart');
+        }
       }
     });
 

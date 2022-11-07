@@ -24,13 +24,13 @@ const projectsManager = (() => {
       function updateProject(number, value) {
         const project = projectList.find((element) => element.number === number);
         project.name = value;
-        localStorage.projectList = JSON.stringify(projectList);
+        localStorage.projects = JSON.stringify(projectList);
       }
     
       function deleteProject(number) {
         const project = projectList.find((element) => element.number === number);
         projectList.splice(projectList.indexOf(project), 1);
-        localStorage.project = JSON.stringify(projectList);
+        localStorage.projects = JSON.stringify(projectList);
       }
     
       return { projectList, createProject, getProjectList, updateProject, deleteProject };

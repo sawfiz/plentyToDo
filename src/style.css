@@ -200,12 +200,18 @@ ul {
   color: white;
 }
 
+.project-container, project-details {
+  display: flex;
+  justify-content: space-between;
+}
+
 .project {
   font-family: inherit;
   font-size: var(--p);
   display: block;
   /* list-style-type: disc; */
 }
+
 
 
 .help {

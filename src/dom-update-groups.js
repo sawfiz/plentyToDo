@@ -81,10 +81,43 @@ function updateGroupsDisplay(list) {
     const projList = projectsManager.getProjectList(group.name);
     console.log(projList);
     projList.forEach((proj) => {
+      const projContainerEl = createElement('div', ['project-container'], {});
       const projEl = createElement('div', ['project'], {});
+      projContainerEl.appendChild(projEl);
       console.log(proj.name);
       projEl.innerText = proj.name;
-      groupsEl.append(projEl);
+
+      const projEditEl = createElement(
+        'div',
+        ['mdi', 'mdi-pencil-box-outline'],
+        {}
+      );
+      projContainerEl.appendChild(projEditEl);
+      groupEl.append(projContainerEl);
+
+      projEditEl.addEventListener('click', () => {
+        const projDetailsEl = createElement('div', [], {});
+        groupEl.insertBefore(projDetailsEl, projContainerEl.nextSibling);
+        const projName2El = createElement('input', [], { type: 'text' });
+        projDetailsEl.appendChild(projName2El);
+        projName2El.value = proj.name;
+        projName2El.focus();
+        projName2El.select();
+        projName2El.addEventListener('change', () => {
+          projectsManager.updateProject(proj.number, projName2El.value);
+          projEl.innerText = projName2El.value;
+          groupEl.removeChild(projDetailsEl);
+        });
+        
+        const deleteProjEl = createElement('div', ['mdi', 'mdi-backspace-outline'], {})
+        projDetailsEl.appendChild(deleteProjEl)
+        deleteProjEl.addEventListener('click', () => {
+          projectsManager.deleteProject(proj.number)
+          groupEl.removeChild(projDetailsEl);
+          groupEl.removeChild(projContainerEl)
+
+        })
+      });
     });
   });
 }

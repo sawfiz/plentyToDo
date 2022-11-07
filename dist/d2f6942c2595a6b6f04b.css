@@ -24,7 +24,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* border: 1px solid #f00; */
   font-family: 'Quicksand';
   /* font-family: 'Roboto'; */
 }
@@ -165,15 +164,11 @@ ul {
   text-align: right;
 } */
 
-.project-container {
+/* .project-container {
   padding: 0.1rem 1rem;
-}
+} */
 
-.project {
-  font-family: inherit;
-  font-size: var(--p);
-  list-style-type: disc;
-}
+
 
 .details {
   /* display: flex;
@@ -204,6 +199,14 @@ ul {
   text-shadow: 0px 0px 4px var(--lighter-color);
   color: white;
 }
+
+.project {
+  font-family: inherit;
+  font-size: var(--p);
+  display: block;
+  /* list-style-type: disc; */
+}
+
 
 .help {
   cursor: pointer;

@@ -9,10 +9,10 @@ const addNewGroup = (() => {
 
     // Focus the cursor on the new task's description input field
     // Find all the task descriptions
-    const descriptionEls = Array.from(document.querySelectorAll('.group'));
+    const descriptionEls = Array.from(document.querySelectorAll('.group-header'));
     // Filter the list for tasks with empty description
     const newGroupEls = descriptionEls.filter(
-      (task) => task.value === 'New Group'
+      group => group.value === 'New Group'
     );
     // Focus on the first task with empty description to make it easier for user to start entering details
     newGroupEls[0].focus();

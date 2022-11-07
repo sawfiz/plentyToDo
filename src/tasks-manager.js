@@ -4,7 +4,7 @@ import stateDone from './constants';
 
 const tasksManager = (() => {
   // Get stored index from localStorage
-  let number = JSON.parse(localStorage.getItem('number'));
+  let number = JSON.parse(localStorage.getItem('taskNumber'));
   if (number === null) number = 0;
 
   // Get stored tasks from localStorage
@@ -46,7 +46,7 @@ const tasksManager = (() => {
     allTasks.unshift(newTask);
     localStorage.allTasks = JSON.stringify(allTasks);
     number++;
-    localStorage.setItem('number', number);
+    localStorage.setItem('taskNumber', number);
   }
 
   function updateTask(number, attr, value) {

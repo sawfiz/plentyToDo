@@ -1,7 +1,7 @@
 import projectFactory from './project';
 
-const groupFactory = (name, projectList) => {
-  return { name, projectList };
+const groupFactory = (number, name, projectList) => {
+  return { number, name, projectList };
 };
 
 export default groupFactory;

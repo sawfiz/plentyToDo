@@ -4,8 +4,8 @@ const groupManager = (() => {
   let groupList = JSON.parse(localStorage.getItem('groups'));
   if ((groupList = null)) groupList = [];
 
-  function createGroup(groupName) {
-    const newGroup = groupFactory(groupName, []);
+  function createGroup() {
+    const newGroup = groupFactory('New Group', []);
     groupList.push(newGroup);
     localStorage.allTasks = JSON.stringify(groups);
   }

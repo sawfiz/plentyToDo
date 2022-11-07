@@ -36,7 +36,7 @@ const tasksManager = (() => {
       number,
       false,
       '0',
-      '',
+      'New Task',
       '',
       'Inbox',
       getToday(),

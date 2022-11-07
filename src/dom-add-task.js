@@ -22,9 +22,10 @@ const addNewTask = (() => {
     // Find all the task descriptions
     const descriptionEls = Array.from(document.querySelectorAll('.task-task'));
     // Filter the list for tasks with empty description
-    const emptyEls = descriptionEls.filter((task) => task.value === '');
+    const newTaskEls = descriptionEls.filter((task) => task.value === 'New Task');
     // Focus on the first task with empty description to make it easier for user to start entering details
-    emptyEls[0].focus();
+    newTaskEls[0].focus();
+    newTaskEls[0].select();
   });
 })();
 
